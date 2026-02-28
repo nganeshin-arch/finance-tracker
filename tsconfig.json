@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.old.tsx",
+    "**/*.old.ts",
+    "src/components/AdminPanel.tsx",
+    "src/components/CategoryManager.tsx",
+    "src/components/ConfigurationManager.tsx",
+    "src/components/ConfirmDialog.tsx",
+    "src/components/DashboardSummary.tsx",
+    "src/components/DateRangeFilter.tsx",
+    "src/components/ExpenseByCategoryChart.tsx",
+    "src/components/Layout.tsx",
+    "src/components/Loading.tsx",
+    "src/components/MonthlyTrendChart.tsx",
+    "src/components/MonthlyTrackingCycleManager.tsx",
+    "src/components/TransactionForm.tsx",
+    "src/components/TransactionList.tsx",
+    "src/pages/AdminPage.tsx",
+    "src/pages/DashboardPage.tsx",
+    "src/pages/TransactionsPage.tsx",
+    "src/pages/TrackingCyclePage.tsx"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
