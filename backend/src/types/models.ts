@@ -1,0 +1,90 @@
+/**
+ * Core data model interfaces
+ */
+
+export interface TrackingCycle {
+  id: number;
+  name: string;
+  startDate: Date;
+  endDate: Date;
+  isActive: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  role: 'user' | 'admin';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+/**
+ * User context attached to requests after authentication
+ * Used for multi-tenant data isolation
+ */
+export interface UserContext {
+  userId: number;
+  email: string;
+  role: 'user' | 'admin';
+}
+
+export interface TransactionType {
+  id: number;
+  name: string;
+  createdAt: Date;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  transactionTypeId: number;
+  transactionType?: TransactionType;
+  createdAt: Date;
+}
+
+export interface SubCategory {
+  id: number;
+  name: string;
+  categoryId: number;
+  category?: Category;
+  createdAt: Date;
+}
+
+export interface PaymentMode {
+  id: number;
+  name: string;
+  createdAt: Date;
+}
+
+export interface Account {
+  id: number;
+  name: string;
+  createdAt: Date;
+}
+
+export interface Transaction {
+  id: number;
+  trackingCycleId?: number;
+  userId?: number;
+  date: Date;
+  transactionTypeId: number;
+  categoryId: number;
+  subCategoryId: number;
+  paymentModeId: number;
+  accountId: number;
+  amount: number;
+  description?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  // Populated relations
+  trackingCycle?: TrackingCycle;
+  user?: User;
+  transactionType?: TransactionType;
+  category?: Category;
+  subCategory?: SubCategory;
+  paymentMode?: PaymentMode;
+  account?: Account;
+}
