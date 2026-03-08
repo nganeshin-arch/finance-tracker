@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typography Weight Verification Tool</title>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    
+    .header {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      margin: 0 0 10px 0;
+      color: #333;
+    }
+    
+    .description {
+      color: #666;
+      line-height: 1.6;
+    }
+    
+    .test-section {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .test-section h2 {
+      margin-top: 0;
+      color: #333;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+    }
+    
+    .test-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 4px;
+      border-left: 4px solid #ccc;
+    }
+    
+    .test-item.pass {
+      background: #e8f5e9;
+      border-left-color: #4caf50;
+    }
+    
+    .test-item.fail {
+      background: #ffebee;
+      border-left-color: #f44336;
+    }
+    
+    .test-label {
+      font-weight: 500;
+      color: #333;
+    }
+    
+    .test-value {
+      font-family: 'Courier New', monospace;
+      color: #666;
+    }
+    
+    .test-status {
+      font-weight: bold;
+      padding: 4px 12px;
+      border-radius: 4px;
+    }
+    
+    .test-status.pass {
+      background: #4caf50;
+      color: white;
+    }
+    
+    .test-status.fail {
+      background: #f44336;
+      color: white;
+    }
+    
+    .summary {
+      background: #2196f3;
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .summary.all-pass {
+      background: #4caf50;
+    }
+    
+    .summary.has-fail {
+      background: #f44336;
+    }
+    
+    button {
+      background: #2196f3;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+    
+    button:hover {
+      background: #1976d2;
+    }
+    
+    .instructions {
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+      padding: 15px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    
+    .instructions h3 {
+      margin-top: 0;
+      color: #856404;
+    }
+    
+    .instructions ol {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+    
+    .instructions li {
+      margin: 5px 0;
+      color: #856404;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Typography Weight Consistency Verification</h1>
+    <p class="description">
+      <strong>Property 1: Typography Weight Consistency</strong><br>
+      Validates Requirements 1.3, 1.4, 7.1<br><br>
+      This tool verifies that heading elements use font-weight 700+, body text uses 400-600, 
+      and financial statistics use 700+.
+    </p>
+  </div>
+
+  <div class="instructions">
+    <h3>📋 Instructions</h3>
+    <ol>
+      <li>Open your Personal Finance Management App in another browser tab</li>
+      <li>Login to the application</li>
+      <li>Navigate to the dashboard/home page</li>
+      <li>Open the browser DevTools (F12)</li>
+      <li>Go to the Console tab</li>
+      <li>Copy and paste the verification script below</li>
+      <li>Press Enter to run the script</li>
+      <li>Review the results in the console</li>
+    </ol>
+  </div>
+
+  <div class="test-section">
+    <h2>Verification Script</h2>
+    <p>Copy this script and paste it into your browser console while on the app page:</p>
+    <pre style="background: #f5f5f5; padding: 15px; border-radius: 4px; overflow-x: auto;"><code>// Typography Weight Consistency Verification Script
+(function() {
+  console.log('%c=== Typography Weight Consistency Test ===', 'font-size: 18px; font-weight: bold; color: #2196f3;');
+  console.log('Property 1: Typography Weight Consistency');
+  console.log('Validates: Requirements 1.3, 1.4, 7.1\n');
+  
+  let passCount = 0;
+  let failCount = 0;
+  
+  function getFontWeight(element) {
+    const computed = window.getComputedStyle(element);
+    const weight = computed.fontWeight;
+    if (weight === 'normal') return 400;
+    if (weight === 'bold') return 700;
+    return parseInt(weight, 10);
+  }
+  
+  function testElement(selector, expectedMin, expectedMax, description) {
+    const elements = document.querySelectorAll(selector);
+    if (elements.length === 0) {
+      console.log(`⊘ ${description}: No elements found (skipped)`);
+      return;
+    }
+    
+    elements.forEach((el, index) => {
+      const weight = getFontWeight(el);
+      const pass = weight >= expectedMin && (expectedMax === null || weight <= expectedMax);
+      
+      if (pass) {
+        console.log(`%c✓ ${description} [${index + 1}]: font-weight = ${weight} (expected: ${expectedMin}${expectedMax ? '-' + expectedMax : '+'})`, 'color: green;');
+        passCount++;
+      } else {
+        console.log(`%c✗ ${description} [${index + 1}]: font-weight = ${weight} (expected: ${expectedMin}${expectedMax ? '-' + expectedMax : '+'})`, 'color: red; font-weight: bold;');
+        failCount++;
+      }
+    });
+  }
+  
+  // Test headings (should be 700+)
+  console.log('\n%c--- Testing Headings (Expected: 700+) ---', 'font-weight: bold;');
+  testElement('h1', 700, null, 'h1');
+  testElement('h2', 700, null, 'h2');
+  testElement('h3', 700, null, 'h3');
+  testElement('h4', 700, null, 'h4');
+  testElement('h5', 700, null, 'h5');
+  testElement('h6', 700, null, 'h6');
+  
+  // Test body text (should be 400-600)
+  console.log('\n%c--- Testing Body Text (Expected: 400-600) ---', 'font-weight: bold;');
+  testElement('p:not(.font-bold):not(.font-semibold)', 400, 600, 'Paragraph (p)');
+  testElement('label', 400, 600, 'Label');
+  testElement('td', 400, 600, 'Table cell (td)');
+  
+  // Test financial statistics (should be 700+)
+  console.log('\n%c--- Testing Financial Statistics (Expected: 700+) ---', 'font-weight: bold;');
+  testElement('[class*="text-2xl"][class*="font-bold"]', 700, null, 'Financial stat (text-2xl font-bold)');
+  testElement('[class*="text-xl"][class*="font-bold"]', 700, null, 'Financial stat (text-xl font-bold)');
+  testElement('.stat-premium', 700, null, 'Stat premium class');
+  
+  // Summary
+  console.log('\n%c=== Test Summary ===', 'font-size: 16px; font-weight: bold;');
+  console.log(`%cPassed: ${passCount}`, 'color: green; font-weight: bold;');
+  console.log(`%cFailed: ${failCount}`, 'color: red; font-weight: bold;');
+  
+  if (failCount === 0) {
+    console.log('%c\n✓ ALL TESTS PASSED! Typography weight consistency is correct.', 'font-size: 16px; color: white; background: green; padding: 10px; font-weight: bold;');
+  } else {
+    console.log('%c\n✗ SOME TESTS FAILED! Please review the typography implementation.', 'font-size: 16px; color: white; background: red; padding: 10px; font-weight: bold;');
+  }
+  
+  return { passed: passCount, failed: failCount };
+})();</code></pre>
+  </div>
+
+  <div class="test-section">
+    <h2>Expected Results</h2>
+    <p>When you run the script, you should see output similar to:</p>
+    <div class="test-item pass">
+      <span class="test-label">✓ h1 [1]: font-weight = 700</span>
+      <span class="test-value">(expected: 700+)</span>
+      <span class="test-status pass">PASS</span>
+    </div>
+    <div class="test-item pass">
+      <span class="test-label">✓ h2 [1]: font-weight = 700</span>
+      <span class="test-value">(expected: 700+)</span>
+      <span class="test-status pass">PASS</span>
+    </div>
+    <div class="test-item pass">
+      <span class="test-label">✓ Paragraph (p) [1]: font-weight = 400</span>
+      <span class="test-value">(expected: 400-600)</span>
+      <span class="test-status pass">PASS</span>
+    </div>
+    <div class="test-item pass">
+      <span class="test-label">✓ Financial stat [1]: font-weight = 700</span>
+      <span class="test-value">(expected: 700+)</span>
+      <span class="test-status pass">PASS</span>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <h2>What This Test Validates</h2>
+    <ul>
+      <li><strong>Requirement 1.3:</strong> Headings use font weights of 700 or higher</li>
+      <li><strong>Requirement 1.4:</strong> Body text uses font weights between 400 and 600</li>
+      <li><strong>Requirement 7.1:</strong> Financial statistics use bold typography (700+)</li>
+    </ul>
+  </div>
+
+  <div class="test-section">
+    <h2>CSS Implementation</h2>
+    <p>The test verifies these CSS rules from <code>index.css</code>:</p>
+    <pre style="background: #f5f5f5; padding: 15px; border-radius: 4px; overflow-x: auto;"><code>/* Headings - bold weights */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Body text - normal weights */
+body, p, span, div {
+  line-height: 1.5;
+}
+
+/* Premium statistic text */
+.stat-premium {
+  font-weight: var(--font-weight-bold); /* 700 */
+}</code></pre>
+  </div>
+
+  <div class="test-section">
+    <h2>Troubleshooting</h2>
+    <ul>
+      <li><strong>No elements found:</strong> Make sure you're on the dashboard/home page with data loaded</li>
+      <li><strong>Tests failing:</strong> Check that the CSS is properly loaded and not overridden</li>
+      <li><strong>Script error:</strong> Make sure you copied the entire script including the opening and closing parentheses</li>
+    </ul>
+  </div>
+</body>
+</html>

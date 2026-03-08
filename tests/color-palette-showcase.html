@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enhanced Color Palette Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 2rem;
+      background: #f9fafb;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #111827;
+    }
+    
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+    
+    .color-family {
+      margin-bottom: 3rem;
+    }
+    
+    .family-name {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #374151;
+    }
+    
+    .shades {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 0.5rem;
+      max-width: 1400px;
+    }
+    
+    .shade {
+      height: 80px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+    
+    .shade:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .shade-label {
+      margin-top: 0.25rem;
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+    
+    /* Primary (Blue) */
+    .primary-50 { background: #f0f9ff; color: #0c4a6e; }
+    .primary-100 { background: #e0f2fe; color: #0c4a6e; }
+    .primary-200 { background: #bae6fd; color: #0c4a6e; }
+    .primary-300 { background: #7dd3fc; color: #0c4a6e; }
+    .primary-400 { background: #38bdf8; color: #fff; }
+    .primary-500 { background: #0ea5e9; color: #fff; }
+    .primary-600 { background: #0284c7; color: #fff; }
+    .primary-700 { background: #0369a1; color: #fff; }
+    .primary-800 { background: #075985; color: #fff; }
+    .primary-900 { background: #0c4a6e; color: #fff; }
+    .primary-950 { background: #082f49; color: #fff; }
+    
+    /* Success (Green) */
+    .success-50 { background: #ecfdf5; color: #022c22; }
+    .success-100 { background: #d1fae5; color: #022c22; }
+    .success-200 { background: #a7f3d0; color: #022c22; }
+    .success-300 { background: #6ee7b7; color: #022c22; }
+    .success-400 { background: #34d399; color: #fff; }
+    .success-500 { background: #10b981; color: #fff; }
+    .success-600 { background: #059669; color: #fff; }
+    .success-700 { background: #047857; color: #fff; }
+    .success-800 { background: #065f46; color: #fff; }
+    .success-900 { background: #064e3b; color: #fff; }
+    .success-950 { background: #022c22; color: #fff; }
+    
+    /* Danger (Red) */
+    .danger-50 { background: #fef2f2; color: #450a0a; }
+    .danger-100 { background: #fee2e2; color: #450a0a; }
+    .danger-200 { background: #fecaca; color: #450a0a; }
+    .danger-300 { background: #fca5a5; color: #450a0a; }
+    .danger-400 { background: #f87171; color: #fff; }
+    .danger-500 { background: #ef4444; color: #fff; }
+    .danger-600 { background: #dc2626; color: #fff; }
+    .danger-700 { background: #b91c1c; color: #fff; }
+    .danger-800 { background: #991b1b; color: #fff; }
+    .danger-900 { background: #7f1d1d; color: #fff; }
+    .danger-950 { background: #450a0a; color: #fff; }
+    
+    /* Warning (Orange) */
+    .warning-50 { background: #fffbeb; color: #451a03; }
+    .warning-100 { background: #fef3c7; color: #451a03; }
+    .warning-200 { background: #fde68a; color: #451a03; }
+    .warning-300 { background: #fcd34d; color: #451a03; }
+    .warning-400 { background: #fbbf24; color: #fff; }
+    .warning-500 { background: #f59e0b; color: #fff; }
+    .warning-600 { background: #d97706; color: #fff; }
+    .warning-700 { background: #b45309; color: #fff; }
+    .warning-800 { background: #92400e; color: #fff; }
+    .warning-900 { background: #78350f; color: #fff; }
+    .warning-950 { background: #451a03; color: #fff; }
+    
+    /* Info (Blue) */
+    .info-50 { background: #eff6ff; color: #172554; }
+    .info-100 { background: #dbeafe; color: #172554; }
+    .info-200 { background: #bfdbfe; color: #172554; }
+    .info-300 { background: #93c5fd; color: #172554; }
+    .info-400 { background: #60a5fa; color: #fff; }
+    .info-500 { background: #3b82f6; color: #fff; }
+    .info-600 { background: #2563eb; color: #fff; }
+    .info-700 { background: #1d4ed8; color: #fff; }
+    .info-800 { background: #1e40af; color: #fff; }
+    .info-900 { background: #1e3a8a; color: #fff; }
+    .info-950 { background: #172554; color: #fff; }
+    
+    /* Accent (Purple) */
+    .accent-50 { background: #fdf4ff; color: #4a044e; }
+    .accent-100 { background: #fae8ff; color: #4a044e; }
+    .accent-200 { background: #f5d0fe; color: #4a044e; }
+    .accent-300 { background: #f0abfc; color: #4a044e; }
+    .accent-400 { background: #e879f9; color: #fff; }
+    .accent-500 { background: #d946ef; color: #fff; }
+    .accent-600 { background: #c026d3; color: #fff; }
+    .accent-700 { background: #a21caf; color: #fff; }
+    .accent-800 { background: #86198f; color: #fff; }
+    .accent-900 { background: #701a75; color: #fff; }
+    .accent-950 { background: #4a044e; color: #fff; }
+  </style>
+</head>
+<body>
+  <h1>Enhanced Color Palette Showcase</h1>
+  <p class="subtitle">Task 1.3: Extended color system with 50-950 shades for all color families</p>
+  
+  <div class="color-family">
+    <div class="family-name">Primary (Blue)</div>
+    <div class="shades">
+      <div class="shade primary-50"><span>50</span><span class="shade-label">#f0f9ff</span></div>
+      <div class="shade primary-100"><span>100</span><span class="shade-label">#e0f2fe</span></div>
+      <div class="shade primary-200"><span>200</span><span class="shade-label">#bae6fd</span></div>
+      <div class="shade primary-300"><span>300</span><span class="shade-label">#7dd3fc</span></div>
+      <div class="shade primary-400"><span>400</span><span class="shade-label">#38bdf8</span></div>
+      <div class="shade primary-500"><span>500</span><span class="shade-label">#0ea5e9</span></div>
+      <div class="shade primary-600"><span>600</span><span class="shade-label">#0284c7</span></div>
+      <div class="shade primary-700"><span>700</span><span class="shade-label">#0369a1</span></div>
+      <div class="shade primary-800"><span>800</span><span class="shade-label">#075985</span></div>
+      <div class="shade primary-900"><span>900</span><span class="shade-label">#0c4a6e</span></div>
+      <div class="shade primary-950"><span>950</span><span class="shade-label">#082f49</span></div>
+    </div>
+  </div>
+  
+  <div class="color-family">
+    <div class="family-name">Success (Green)</div>
+    <div class="shades">
+      <div class="shade success-50"><span>50</span><span class="shade-label">#ecfdf5</span></div>
+      <div class="shade success-100"><span>100</span><span class="shade-label">#d1fae5</span></div>
+      <div class="shade success-200"><span>200</span><span class="shade-label">#a7f3d0</span></div>
+      <div class="shade success-300"><span>300</span><span class="shade-label">#6ee7b7</span></div>
+      <div class="shade success-400"><span>400</span><span class="shade-label">#34d399</span></div>
+      <div class="shade success-500"><span>500</span><span class="shade-label">#10b981</span></div>
+      <div class="shade success-600"><span>600</span><span class="shade-label">#059669</span></div>
+      <div class="shade success-700"><span>700</span><span class="shade-label">#047857</span></div>
+      <div class="shade success-800"><span>800</span><span class="shade-label">#065f46</span></div>
+      <div class="shade success-900"><span>900</span><span class="shade-label">#064e3b</span></div>
+      <div class="shade success-950"><span>950</span><span class="shade-label">#022c22</span></div>
+    </div>
+  </div>
+  
+  <div class="color-family">
+    <div class="family-name">Danger (Red)</div>
+    <div class="shades">
+      <div class="shade danger-50"><span>50</span><span class="shade-label">#fef2f2</span></div>
+      <div class="shade danger-100"><span>100</span><span class="shade-label">#fee2e2</span></div>
+      <div class="shade danger-200"><span>200</span><span class="shade-label">#fecaca</span></div>
+      <div class="shade danger-300"><span>300</span><span class="shade-label">#fca5a5</span></div>
+      <div class="shade danger-400"><span>400</span><span class="shade-label">#f87171</span></div>
+      <div class="shade danger-500"><span>500</span><span class="shade-label">#ef4444</span></div>
+      <div class="shade danger-600"><span>600</span><span class="shade-label">#dc2626</span></div>
+      <div class="shade danger-700"><span>700</span><span class="shade-label">#b91c1c</span></div>
+      <div class="shade danger-800"><span>800</span><span class="shade-label">#991b1b</span></div>
+      <div class="shade danger-900"><span>900</span><span class="shade-label">#7f1d1d</span></div>
+      <div class="shade danger-950"><span>950</span><span class="shade-label">#450a0a</span></div>
+    </div>
+  </div>
+  
+  <div class="color-family">
+    <div class="family-name">Warning (Orange)</div>
+    <div class="shades">
+      <div class="shade warning-50"><span>50</span><span class="shade-label">#fffbeb</span></div>
+      <div class="shade warning-100"><span>100</span><span class="shade-label">#fef3c7</span></div>
+      <div class="shade warning-200"><span>200</span><span class="shade-label">#fde68a</span></div>
+      <div class="shade warning-300"><span>300</span><span class="shade-label">#fcd34d</span></div>
+      <div class="shade warning-400"><span>400</span><span class="shade-label">#fbbf24</span></div>
+      <div class="shade warning-500"><span>500</span><span class="shade-label">#f59e0b</span></div>
+      <div class="shade warning-600"><span>600</span><span class="shade-label">#d97706</span></div>
+      <div class="shade warning-700"><span>700</span><span class="shade-label">#b45309</span></div>
+      <div class="shade warning-800"><span>800</span><span class="shade-label">#92400e</span></div>
+      <div class="shade warning-900"><span>900</span><span class="shade-label">#78350f</span></div>
+      <div class="shade warning-950"><span>950</span><span class="shade-label">#451a03</span></div>
+    </div>
+  </div>
+  
+  <div class="color-family">
+    <div class="family-name">Info (Blue)</div>
+    <div class="shades">
+      <div class="shade info-50"><span>50</span><span class="shade-label">#eff6ff</span></div>
+      <div class="shade info-100"><span>100</span><span class="shade-label">#dbeafe</span></div>
+      <div class="shade info-200"><span>200</span><span class="shade-label">#bfdbfe</span></div>
+      <div class="shade info-300"><span>300</span><span class="shade-label">#93c5fd</span></div>
+      <div class="shade info-400"><span>400</span><span class="shade-label">#60a5fa</span></div>
+      <div class="shade info-500"><span>500</span><span class="shade-label">#3b82f6</span></div>
+      <div class="shade info-600"><span>600</span><span class="shade-label">#2563eb</span></div>
+      <div class="shade info-700"><span>700</span><span class="shade-label">#1d4ed8</span></div>
+      <div class="shade info-800"><span>800</span><span class="shade-label">#1e40af</span></div>
+      <div class="shade info-900"><span>900</span><span class="shade-label">#1e3a8a</span></div>
+      <div class="shade info-950"><span>950</span><span class="shade-label">#172554</span></div>
+    </div>
+  </div>
+  
+  <div class="color-family">
+    <div class="family-name">Accent (Purple)</div>
+    <div class="shades">
+      <div class="shade accent-50"><span>50</span><span class="shade-label">#fdf4ff</span></div>
+      <div class="shade accent-100"><span>100</span><span class="shade-label">#fae8ff</span></div>
+      <div class="shade accent-200"><span>200</span><span class="shade-label">#f5d0fe</span></div>
+      <div class="shade accent-300"><span>300</span><span class="shade-label">#f0abfc</span></div>
+      <div class="shade accent-400"><span>400</span><span class="shade-label">#e879f9</span></div>
+      <div class="shade accent-500"><span>500</span><span class="shade-label">#d946ef</span></div>
+      <div class="shade accent-600"><span>600</span><span class="shade-label">#c026d3</span></div>
+      <div class="shade accent-700"><span>700</span><span class="shade-label">#a21caf</span></div>
+      <div class="shade accent-800"><span>800</span><span class="shade-label">#86198f</span></div>
+      <div class="shade accent-900"><span>900</span><span class="shade-label">#701a75</span></div>
+      <div class="shade accent-950"><span>950</span><span class="shade-label">#4a044e</span></div>
+    </div>
+  </div>
+</body>
+</html>

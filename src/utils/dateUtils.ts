@@ -86,8 +86,15 @@ export interface DayData {
 
 /**
  * Calculate date range based on view mode and reference date
+ * Supports custom monthly start dates for user preferences
  */
-export const getDateRange = (mode: ViewMode, referenceDate: Date, customStart?: Date, customEnd?: Date): DateRange => {
+export const getDateRange = (
+  mode: ViewMode, 
+  referenceDate: Date, 
+  customStart?: Date, 
+  customEnd?: Date,
+  monthlyStartDate?: number
+): DateRange => {
   switch (mode) {
     case 'daily':
       return {
@@ -102,6 +109,9 @@ export const getDateRange = (mode: ViewMode, referenceDate: Date, customStart?: 
       };
     
     case 'monthly':
+      if (monthlyStartDate && monthlyStartDate !== 1) {
+        return getCustomMonthlyRange(referenceDate, monthlyStartDate);
+      }
       return {
         start: startOfMonth(referenceDate),
         end: endOfMonth(referenceDate)
@@ -132,6 +142,54 @@ export const getDateRange = (mode: ViewMode, referenceDate: Date, customStart?: 
         end: endOfDay(referenceDate)
       };
   }
+};
+
+/**
+ * Calculate custom monthly range based on user's preferred start date
+ * Example: If monthlyStartDate is 24, range is 24th of current month to 23rd of next month
+ */
+export const getCustomMonthlyRange = (referenceDate: Date, monthlyStartDate: number): DateRange => {
+  const year = referenceDate.getFullYear();
+  const month = referenceDate.getMonth();
+  const currentDay = referenceDate.getDate();
+  
+  let startYear = year;
+  let startMonth = month;
+  let endYear = year;
+  let endMonth = month;
+  
+  // If we're before the monthly start date, use previous month's start date
+  if (currentDay < monthlyStartDate) {
+    if (month === 0) {
+      startYear = year - 1;
+      startMonth = 11; // December
+    } else {
+      startMonth = month - 1;
+    }
+    endMonth = month;
+    endYear = year;
+  } else {
+    // We're after the monthly start date, so current period started this month
+    startMonth = month;
+    startYear = year;
+    if (month === 11) {
+      endYear = year + 1;
+      endMonth = 0; // January
+    } else {
+      endMonth = month + 1;
+    }
+  }
+  
+  // Create start date
+  const start = new Date(startYear, startMonth, monthlyStartDate);
+  
+  // Create end date (day before next period starts)
+  const end = new Date(endYear, endMonth, monthlyStartDate - 1);
+  
+  return {
+    start: startOfDay(start),
+    end: endOfDay(end)
+  };
 };
 
 /**

@@ -1,7 +1,7 @@
 {
-  "name": "Personal Finance Tracker",
-  "short_name": "Finance",
-  "description": "Track your personal finances with multi-tenant data isolation",
+  "name": "ExpenseIQ - Smart Personal Finance",
+  "short_name": "ExpenseIQ",
+  "description": "Smart personal finance management with ExpenseIQ. Track expenses, manage budgets, and gain financial insights.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

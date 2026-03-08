@@ -1,3 +1,6 @@
+/* Import Inter font with premium weights */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,11 +10,82 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
   
-  /* Premium Georgia font for all headings */
+  /* Smooth scroll behavior for the entire document */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Respect reduced motion preferences for smooth scroll */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  
+  /* Premium typography for headings - bold weights and proper line height */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    font-weight: 600;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
     letter-spacing: -0.02em;
+  }
+  
+  h1 {
+    font-weight: 800;
+  }
+  
+  h2, h3 {
+    font-weight: 700;
+  }
+  
+  h4, h5, h6 {
+    font-weight: 600;
+  }
+  
+  /* Body text with proper line height */
+  body, p, span, div {
+    line-height: 1.5;
+  }
+  
+  /* Financial value styling */
+  .financial-stat {
+    font-weight: 700;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  
+  /* ExpenseIQ Logo Styling */
+  .expenseiq-logo {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .expenseiq-tagline {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  
+  /* Ensure smooth transitions are hardware accelerated */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Respect reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
   
   :root {
@@ -36,6 +110,31 @@
     --ring: 222.2 84% 4.9%;
     --radius: 0.75rem;
     
+    /* Premium Typography System */
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    
+    --line-height-body: 1.5;
+    --line-height-heading: 1.2;
+    
+    /* Animation System */
+    --duration-fast: 150ms;
+    --duration-normal: 200ms;
+    --duration-medium: 250ms;
+    --duration-slow: 300ms;
+    
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Shadow System */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    
     /* Custom finance colors - Income (Green) */
     --income-500: 142 71% 45%;
     --income-600: 142 76% 36%;
@@ -51,6 +150,18 @@
     /* Premium gold accent */
     --gold: 45 100% 51%;
     --gold-dark: 38 92% 50%;
+    
+    /* Premium Gradient Definitions */
+    --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #0369a1 100%);
+    --gradient-accent: linear-gradient(135deg, #d946ef 0%, #c026d3 50%, #a21caf 100%);
+    --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    --gradient-danger: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+    --gradient-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+    --gradient-info: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
+    --gradient-premium: linear-gradient(135deg, #0ea5e9 0%, #d946ef 50%, #f59e0b 100%);
+    --gradient-income: linear-gradient(135deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+    --gradient-expense: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+    --gradient-neutral: linear-gradient(135deg, #3b82f6 0%, #2563eb 50%, #1d4ed8 100%);
   }
 
   .dark {
@@ -89,6 +200,69 @@
     /* Premium gold accent for dark mode */
     --gold: 45 100% 60%;
     --gold-dark: 45 100% 51%;
+    
+    /* Premium Gradient Definitions - Dark Mode (brighter, more vibrant) */
+    --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%);
+    --gradient-accent: linear-gradient(135deg, #e879f9 0%, #d946ef 50%, #c026d3 100%);
+    --gradient-success: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+    --gradient-danger: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%);
+    --gradient-warning: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+    --gradient-info: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+    --gradient-premium: linear-gradient(135deg, #38bdf8 0%, #e879f9 50%, #fbbf24 100%);
+    --gradient-income: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+    --gradient-expense: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%);
+    --gradient-neutral: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+  }
+  
+  /* Support for [data-theme="dark"] attribute */
+  [data-theme="dark"] {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 217.2 32.6% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    
+    /* Custom finance colors - Income (Green) - brighter for dark mode */
+    --income-500: 142 71% 50%;
+    --income-600: 142 71% 45%;
+    
+    /* Custom finance colors - Expense (Red) - brighter for dark mode */
+    --expense-500: 0 84% 65%;
+    --expense-600: 0 84% 60%;
+    
+    /* Custom finance colors - Neutral/Balance (Blue) - brighter for dark mode */
+    --neutral-500: 217 91% 65%;
+    --neutral-600: 217 91% 60%;
+    
+    /* Premium gold accent for dark mode */
+    --gold: 45 100% 60%;
+    --gold-dark: 45 100% 51%;
+    
+    /* Premium Gradient Definitions - Dark Mode (brighter, more vibrant) */
+    --gradient-primary: linear-gradient(135deg, #38bdf8 0%, #0ea5e9 50%, #0284c7 100%);
+    --gradient-accent: linear-gradient(135deg, #e879f9 0%, #d946ef 50%, #c026d3 100%);
+    --gradient-success: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+    --gradient-danger: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%);
+    --gradient-warning: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+    --gradient-info: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
+    --gradient-premium: linear-gradient(135deg, #38bdf8 0%, #e879f9 50%, #fbbf24 100%);
+    --gradient-income: linear-gradient(135deg, #4ade80 0%, #22c55e 50%, #16a34a 100%);
+    --gradient-expense: linear-gradient(135deg, #f87171 0%, #ef4444 50%, #dc2626 100%);
+    --gradient-neutral: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%);
   }
 }
 
@@ -118,17 +292,68 @@
 }
 
 @layer components {
-  /* Custom component styles */
+  /* Custom component styles - GPU optimized */
   .card-hover {
-    @apply transition-all duration-300 hover:scale-[1.02] hover:shadow-xl;
+    @apply transition-transform duration-300 hover:scale-[1.02];
+    will-change: transform;
   }
   
+  .card-hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  .card-hover:hover::after {
+    opacity: 1;
+  }
+  
+  /* GPU-optimized button animations - only transform and opacity */
   .btn-primary {
-    @apply bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 shadow-md hover:shadow-lg;
+    @apply bg-primary text-primary-foreground;
+    /* OPTIMIZED: Only use transform and opacity for GPU acceleration */
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
   }
   
+  .btn-primary:hover {
+    transform: translateY(-1px) scale(1.01);
+    opacity: 0.95;
+  }
+  
+  .btn-primary:active {
+    transform: translateY(0) scale(0.98);
+    opacity: 0.9;
+  }
+  
+  /* Remove will-change after animation completes to optimize memory */
+  .btn-primary:not(:hover):not(:active):not(:focus) {
+    will-change: auto;
+  }
+  
+  /* GPU-optimized input focus - avoid expensive box-shadow during transition */
   .input-focus {
-    @apply focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all duration-200;
+    @apply focus:ring-2 focus:ring-ring focus:ring-offset-2;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  .input-focus:focus {
+    transform: scale(1.01);
+    will-change: auto; /* Remove will-change after focus */
+  }
+  
+  .input-focus:not(:focus) {
+    will-change: auto;
   }
   
   /* Premium input styling */
@@ -141,6 +366,430 @@
 }
 
 @layer utilities {
+  /* ========================================
+     PREMIUM TYPOGRAPHY UTILITIES
+     ======================================== */
+  
+  /* Font Weight Utilities */
+  .font-weight-normal {
+    font-weight: var(--font-weight-normal);
+  }
+  
+  .font-weight-medium {
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .font-weight-semibold {
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .font-weight-bold {
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .font-weight-extrabold {
+    font-weight: var(--font-weight-extrabold);
+  }
+  
+  /* Line Height Utilities */
+  .leading-body {
+    line-height: var(--line-height-body);
+  }
+  
+  .leading-heading {
+    line-height: var(--line-height-heading);
+  }
+  
+  /* Premium Heading Styles */
+  .heading-premium {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-heading);
+    letter-spacing: -0.02em;
+  }
+  
+  /* Premium Body Text Styles */
+  .body-premium {
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height-body);
+  }
+  
+  /* Premium Statistic Text (bold, for dashboard numbers) */
+  .stat-premium {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-heading);
+  }
+  
+  /* Financial Value Styles */
+  .financial-value {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-heading);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.01em;
+  }
+  
+  .financial-label {
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-body);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.75rem;
+  }
+  
+  /* ========================================
+     PREMIUM GRADIENT UTILITIES
+     ======================================== */
+  
+  /* Gradient Background Utilities */
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  
+  .bg-gradient-accent {
+    background-image: var(--gradient-accent);
+  }
+  
+  .bg-gradient-success {
+    background-image: var(--gradient-success);
+  }
+  
+  .bg-gradient-danger {
+    background-image: var(--gradient-danger);
+  }
+  
+  .bg-gradient-warning {
+    background-image: var(--gradient-warning);
+  }
+  
+  .bg-gradient-info {
+    background-image: var(--gradient-info);
+  }
+  
+  .bg-gradient-premium {
+    background-image: var(--gradient-premium);
+  }
+  
+  .bg-gradient-income {
+    background-image: var(--gradient-income);
+  }
+  
+  .bg-gradient-expense {
+    background-image: var(--gradient-expense);
+  }
+  
+  .bg-gradient-neutral {
+    background-image: var(--gradient-neutral);
+  }
+  
+  /* Gradient Text Utilities */
+  .text-gradient-primary {
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .text-gradient-accent {
+    background-image: var(--gradient-accent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .text-gradient-premium {
+    background-image: var(--gradient-premium);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  /* ========================================
+     SHADOW UTILITIES
+     ======================================== */
+  
+  /* Premium Shadow Utilities - Static shadows only, no animation */
+  .shadow-premium {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+                0 4px 6px -4px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+  
+  .shadow-premium-lg {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+                0 8px 10px -6px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+  
+  /* Glow effects - applied statically, not during transitions */
+  .shadow-glow-primary {
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1),
+                0 10px 15px -3px rgba(14, 165, 233, 0.2);
+  }
+  
+  .shadow-glow-success {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1),
+                0 10px 15px -3px rgba(16, 185, 129, 0.2);
+  }
+  
+  .shadow-glow-danger {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1),
+                0 10px 15px -3px rgba(239, 68, 68, 0.2);
+  }
+  
+  /* ========================================
+     GPU-ACCELERATED ANIMATION UTILITIES
+     ======================================== */
+  
+  /* GPU-optimized hover effects - only use transform and opacity */
+  .gpu-hover-lift {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .gpu-hover-lift:hover {
+    transform: translateY(-2px);
+  }
+  
+  .gpu-hover-lift:not(:hover) {
+    will-change: auto;
+  }
+  
+  .gpu-hover-scale {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .gpu-hover-scale:hover {
+    transform: scale(1.02);
+  }
+  
+  .gpu-hover-scale:not(:hover) {
+    will-change: auto;
+  }
+  
+  .gpu-hover-scale-subtle {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .gpu-hover-scale-subtle:hover {
+    transform: scale(1.01);
+  }
+  
+  .gpu-hover-scale-subtle:not(:hover) {
+    will-change: auto;
+  }
+  
+  /* GPU-optimized active states */
+  .gpu-active-press {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .gpu-active-press:active {
+    transform: scale(0.98);
+  }
+  
+  .gpu-active-press:not(:active) {
+    will-change: auto;
+  }
+  
+  /* GPU-optimized fade effects */
+  .gpu-fade {
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+  }
+  
+  .gpu-fade-in {
+    opacity: 0;
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  /* Combined transform and opacity animations */
+  .gpu-slide-up {
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUpFade 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  .gpu-scale-fade {
+    transform: scale(0.95);
+    opacity: 0;
+    animation: scaleFade 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+  
+  /* Keyframes for GPU-optimized animations */
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideUpFade {
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes scaleFade {
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Loading spinner - GPU optimized */
+  .gpu-spinner {
+    animation: spin 1s linear infinite;
+    will-change: transform;
+  }
+  
+  /* Pulse animation - GPU optimized */
+  .gpu-pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: opacity;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  .gpu-active-press:active {
+    transform: scale(0.98);
+  }
+  
+  /* GPU-optimized fade effects */
+  .gpu-fade {
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity;
+  }
+  
+  /* GPU-optimized button hover states - replace expensive background transitions */
+  .gpu-button-hover {
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  .gpu-button-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    will-change: opacity;
+  }
+  
+  .gpu-button-hover:hover::before {
+    opacity: 1;
+  }
+  
+  .gpu-button-hover:hover {
+    transform: translateY(-1px);
+  }
+  
+  .gpu-button-hover:active {
+    transform: translateY(0) scale(0.98);
+  }
+  
+  /* GPU-optimized card hover states - replace expensive background transitions */
+  .gpu-card-hover {
+    position: relative;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .gpu-card-hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    will-change: opacity;
+  }
+  
+  .dark .gpu-card-hover::before {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .gpu-card-hover:hover::before {
+    opacity: 1;
+  }
+  
+  .gpu-card-hover:hover {
+    transform: translateY(-1px) scale(1.005);
+  }
+  
+  /* GPU-optimized shadow effects using pseudo-elements */
+  .gpu-shadow-hover {
+    position: relative;
+  }
+  
+  .gpu-shadow-hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: -1;
+    will-change: opacity;
+  }
+  
+  .gpu-shadow-hover:hover::after {
+    opacity: 1;
+  }
+  
+  .gpu-shadow-hover-lg {
+    position: relative;
+  }
+  
+  .gpu-shadow-hover-lg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: -1;
+    will-change: opacity;
+  }
+  
+  .gpu-shadow-hover-lg:hover::after {
+    opacity: 1;
+  }
+
+  /* ========================================
+     TRANSITION UTILITIES
+     ======================================== */
+  
   /* Custom utility classes */
   .text-balance {
     text-wrap: balance;
@@ -155,7 +804,7 @@
     display: none;
   }
   
-  /* Ripple effect for buttons */
+  /* Ripple effect for buttons - GPU accelerated */
   .ripple {
     position: absolute;
     border-radius: 50%;
@@ -163,6 +812,7 @@
     transform: scale(0);
     animation: ripple-animation 600ms ease-out;
     pointer-events: none;
+    will-change: transform, opacity;
   }
   
   @keyframes ripple-animation {
@@ -172,14 +822,154 @@
     }
   }
   
-  /* Smooth transitions for interactive elements */
-  .transition-smooth {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
   
-  /* Hover lift effect */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200px 0;
+    }
+    100% {
+      background-position: calc(200px + 100%) 0;
+    }
+  }
+  
+  /* Smooth transitions for interactive elements - GPU accelerated */
+  .transition-smooth {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  .transition-smooth-fast {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  .transition-colors-smooth {
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .transition-transform-smooth {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  /* REMOVED: Expensive box-shadow transition - replaced with GPU-accelerated alternatives */
+  .transition-shadow-smooth {
+    /* Use transform and opacity for GPU acceleration instead of box-shadow */
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  /* GPU-optimized transitions - only use transform and opacity */
+  .transition-gpu {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  .transition-gpu-fast {
+    transition: transform 0.15s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  .transition-gpu-slow {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform, opacity;
+  }
+  
+  /* Hover lift effect - GPU accelerated */
+  /* OPTIMIZED: Remove expensive transition-all and use GPU-accelerated properties only */
   .hover-lift {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px);
+  }
+  
+  /* Add shadow effect using pseudo-element for better performance */
+  .hover-lift::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: -1;
+    will-change: opacity;
+  }
+  
+  .hover-lift:hover::after {
+    opacity: 1;
+  }
+  
+  /* OPTIMIZED: Remove expensive transition-all and use GPU-accelerated properties only */
+  .hover-lift-subtle {
+    position: relative;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+  
+  .hover-lift-subtle:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Add shadow effect using pseudo-element for better performance */
+  .hover-lift-subtle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    z-index: -1;
+    will-change: opacity;
+  }
+  
+  .hover-lift-subtle:hover::after {
+    opacity: 1;
   }
   
   /* Focus ring with smooth transition */
@@ -187,10 +977,46 @@
     @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 transition-all duration-200;
   }
   
+  .focus-ring-primary {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all duration-200;
+  }
+  
+  /* Ensure all interactive elements within cards have visible focus indicators */
+  .card a:focus,
+  .card button:focus,
+  .card input:focus,
+  .card select:focus,
+  .card textarea:focus,
+  .card [tabindex]:focus {
+    @apply outline-none ring-2 ring-ring ring-offset-2;
+  }
+  
+  /* Card focus-within state for keyboard navigation */
+  .card:focus-within {
+    @apply ring-2 ring-ring ring-offset-2;
+  }
+  
+  /* Interactive card focus state */
+  .card[tabindex]:focus {
+    @apply outline-none ring-2 ring-ring ring-offset-2;
+  }
+  
+  /* ========================================
+     PREMIUM BACKGROUND UTILITIES
+     ======================================== */
+  
   /* Premium gradient backgrounds */
   .bg-premium {
     @apply bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900;
   }
+  
+  .bg-premium-subtle {
+    @apply bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800;
+  }
+  
+  /* ========================================
+     GOLD ACCENT UTILITIES
+     ======================================== */
   
   /* Gold accent for premium features */
   .text-gold {
@@ -199,5 +1025,199 @@
   
   .border-gold {
     border-color: hsl(var(--gold));
+  }
+  
+  .bg-gold {
+    background-color: hsl(var(--gold));
+  }
+  
+  /* ========================================
+     ANIMATION UTILITIES
+     ======================================== */
+  
+  /* Fade animations */
+  .animate-fade-in-fast {
+    animation: fadeIn 0.15s ease-in;
+  }
+  
+  .animate-fade-in-slow {
+    animation: fadeIn 0.3s ease-in;
+  }
+  
+  .animate-fade-in-up {
+    animation: fadeInUp 0.5s ease-out;
+  }
+  
+  .animate-fade-in-up-slow {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  /* Scale animations */
+  .animate-scale-in-fast {
+    animation: scaleIn 0.15s ease-out;
+  }
+  
+  /* Shimmer animation for skeleton loading */
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.2) 20%,
+      rgba(255, 255, 255, 0.5) 60%,
+      rgba(255, 255, 255, 0)
+    );
+    background-size: 200px 100%;
+  }
+  
+  /* Stagger animation delays for dashboard cards */
+  .stagger-1 {
+    animation-delay: 100ms;
+  }
+  
+  .stagger-2 {
+    animation-delay: 200ms;
+  }
+  
+  .stagger-3 {
+    animation-delay: 300ms;
+  }
+  
+  .stagger-4 {
+    animation-delay: 400ms;
+  }
+  
+  .stagger-5 {
+    animation-delay: 500ms;
+  }
+  
+  .stagger-6 {
+    animation-delay: 600ms;
+  }
+  
+  /* Scroll-triggered fade-in animation - GPU accelerated */
+  .fade-in-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: transform, opacity;
+  }
+  
+  .fade-in-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: auto; /* Remove will-change after animation completes */
+  }
+  
+  /* Section fade-in animation - GPU accelerated */
+  .section-fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: transform, opacity;
+  }
+  
+  .section-fade-in.loaded {
+    opacity: 1;
+    transform: translateY(0);
+    will-change: auto; /* Remove will-change after animation completes */
+  }
+  
+  /* Hover scale effect - GPU accelerated */
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+    will-change: transform;
+  }
+  
+  .hover-scale-subtle {
+    @apply transition-transform duration-200 hover:scale-[1.02];
+    will-change: transform;
+  }
+  
+  /* Active press effect - GPU accelerated */
+  .active-scale {
+    @apply transition-transform duration-150 active:scale-[0.98];
+    will-change: transform;
+  }
+  
+  /* ========================================
+     DASHBOARD GRID LAYOUT
+     ======================================== */
+  
+  /**
+   * Responsive dashboard grid layout using CSS Grid
+   * Adapts from 1 column on mobile to 2-4 columns on tablet/desktop
+   * with consistent spacing and smooth transitions.
+   * 
+   * Validates: Requirements 7.5, 9.4
+   * Property 26: Dashboard Responsive Layout
+   */
+  
+  .dashboard-grid {
+    display: grid;
+    gap: 1rem; /* 16px - consistent spacing between elements */
+    width: 100%;
+    min-width: 0; /* Prevent grid items from overflowing */
+    transition: gap 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Mobile: 1 column (default) */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Tablet: 2 columns for 2-col grid, 2 columns for 3-col grid, 2 columns for 4-col grid */
+  @media (min-width: 640px) {
+    .dashboard-grid {
+      gap: 1rem; /* 16px */
+    }
+    
+    .dashboard-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-grid-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-grid-4 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* Desktop: Full column count */
+  @media (min-width: 1024px) {
+    .dashboard-grid {
+      gap: 1.25rem; /* 20px - slightly larger spacing on desktop */
+    }
+    
+    .dashboard-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .dashboard-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .dashboard-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  /* Ensure grid items have smooth transitions and prevent overflow */
+  .dashboard-grid > * {
+    min-width: 0; /* Allow grid items to shrink below their content size */
+    overflow: hidden; /* Prevent content from overflowing the grid item */
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* ========================================
+     FONT UTILITIES
+     ======================================== */
+  
+  /* Inter font family utility for consistent typography */
+  .font-inter {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
 }

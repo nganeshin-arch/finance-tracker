@@ -96,3 +96,9 @@ export {
   TableCell,
   TableCaption,
 } from './table';
+
+export { StatCard, statCardVariants } from './stat-card';
+export type { StatCardProps } from './stat-card';
+
+export { DashboardGrid } from './dashboard-grid';
+export type { DashboardGridProps } from './dashboard-grid';

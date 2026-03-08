@@ -1,0 +1,136 @@
+{
+  "summary": {
+    "passed": 19,
+    "failed": 0,
+    "warnings": 1,
+    "score": 100,
+    "timestamp": "2026-03-07T18:12:09.665Z"
+  },
+  "details": [
+    {
+      "type": "pass",
+      "title": "Form element has semantic structure",
+      "description": "Form uses proper HTML5 form element with aria-label",
+      "timestamp": "2026-03-07T18:12:09.632Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form has proper heading structure",
+      "description": "Form includes heading elements for structure",
+      "timestamp": "2026-03-07T18:12:09.633Z"
+    },
+    {
+      "type": "warning",
+      "title": "Consider using fieldset for field grouping",
+      "description": "Fieldsets can improve screen reader navigation",
+      "timestamp": "2026-03-07T18:12:09.633Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form has sufficient label associations",
+      "description": "Found 8 Label components",
+      "timestamp": "2026-03-07T18:12:09.637Z"
+    },
+    {
+      "type": "pass",
+      "title": "Required fields have proper label association",
+      "description": "7/7 required fields properly labeled",
+      "timestamp": "2026-03-07T18:12:09.638Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form elements have aria-label attributes",
+      "description": "Found 9 aria-label attributes",
+      "timestamp": "2026-03-07T18:12:09.639Z"
+    },
+    {
+      "type": "pass",
+      "title": "Required fields have aria-required attribute",
+      "description": "Form properly marks required fields",
+      "timestamp": "2026-03-07T18:12:09.641Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form handles aria-invalid for validation",
+      "description": "Form properly manages validation states",
+      "timestamp": "2026-03-07T18:12:09.641Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form uses aria-describedby for error association",
+      "description": "Error messages properly associated with fields",
+      "timestamp": "2026-03-07T18:12:09.641Z"
+    },
+    {
+      "type": "pass",
+      "title": "Error messages use role=\"alert\"",
+      "description": "Error messages will be announced to screen readers",
+      "timestamp": "2026-03-07T18:12:09.642Z"
+    },
+    {
+      "type": "pass",
+      "title": "Buttons have proper types",
+      "description": "Submit and cancel buttons properly typed",
+      "timestamp": "2026-03-07T18:12:09.643Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form handles disabled states",
+      "description": "Form properly disables elements during submission",
+      "timestamp": "2026-03-07T18:12:09.645Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form uses proper form control library",
+      "description": "React Hook Form provides good keyboard accessibility",
+      "timestamp": "2026-03-07T18:12:09.645Z"
+    },
+    {
+      "type": "pass",
+      "title": "Error messages have proper structure",
+      "description": "Error messages use consistent ID pattern and role=\"alert\"",
+      "timestamp": "2026-03-07T18:12:09.646Z"
+    },
+    {
+      "type": "pass",
+      "title": "Error states have visual styling",
+      "description": "Form provides visual feedback for errors",
+      "timestamp": "2026-03-07T18:12:09.646Z"
+    },
+    {
+      "type": "pass",
+      "title": "Error messages include visual indicators",
+      "description": "Error messages use icons for better accessibility",
+      "timestamp": "2026-03-07T18:12:09.647Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form handles success states",
+      "description": "Form provides feedback for successful validation",
+      "timestamp": "2026-03-07T18:12:09.647Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form uses modern focus management",
+      "description": "Form implements focus-visible for better UX",
+      "timestamp": "2026-03-07T18:12:09.648Z"
+    },
+    {
+      "type": "pass",
+      "title": "Focus transitions are smooth",
+      "description": "Form provides smooth focus transitions",
+      "timestamp": "2026-03-07T18:12:09.649Z"
+    },
+    {
+      "type": "pass",
+      "title": "Form has visible focus indicators",
+      "description": "Focus indicators are implemented",
+      "timestamp": "2026-03-07T18:12:09.649Z"
+    }
+  ],
+  "requirements": {
+    "8.6": "TransactionForm accessibility compliance",
+    "11.2": "Visible focus indicators on all interactive elements",
+    "11.6": "Form accessibility (proper labels, error announcements, keyboard navigation)"
+  }
+}

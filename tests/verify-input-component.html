@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Component Verification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    }
+    
+    /* Premium gradient definitions */
+    :root {
+      --gradient-primary: linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #0369a1 100%);
+    }
+    
+    /* Input base styles matching the component */
+    .input-base {
+      display: flex;
+      width: 100%;
+      border-radius: 0.375rem;
+      border: 1px solid #e5e7eb;
+      background-color: white;
+      font-size: 0.875rem;
+      transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .input-default {
+      height: 3rem;
+      padding: 0.75rem 1rem;
+    }
+    
+    .input-base:hover {
+      border-color: rgba(229, 231, 235, 0.8);
+    }
+    
+    .input-base:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 0 0 2px rgba(59, 130, 246, 0.2);
+    }
+    
+    .input-error {
+      border-color: #ef4444;
+    }
+    
+    .input-error:focus {
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1), 0 0 0 2px rgba(239, 68, 68, 0.2);
+    }
+    
+    .input-success {
+      border-color: #10b981;
+    }
+    
+    .input-success:focus {
+      border-color: #059669;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1), 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+    
+    .input-base:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+    
+    .message-error {
+      margin-top: 0.375rem;
+      font-size: 0.875rem;
+      color: #dc2626;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    
+    .message-success {
+      margin-top: 0.375rem;
+      font-size: 0.875rem;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+    
+    .message-helper {
+      margin-top: 0.375rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 p-8">
+  <div class="max-w-4xl mx-auto space-y-8">
+    <div class="bg-white rounded-xl shadow-md p-8">
+      <h1 class="text-3xl font-bold mb-2">Enhanced Input Component Verification</h1>
+      <p class="text-gray-600 mb-8">Testing premium input styling with consistent sizing, focus states, and validation feedback</p>
+      
+      <!-- Default State -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Default State (h-12, px-4)</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Text Input</label>
+            <input 
+              type="text" 
+              class="input-base input-default" 
+              placeholder="Enter text..."
+            />
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Email Input</label>
+            <input 
+              type="email" 
+              class="input-base input-default" 
+              placeholder="email@example.com"
+            />
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Number Input</label>
+            <input 
+              type="number" 
+              class="input-base input-default" 
+              placeholder="0"
+            />
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Date Input</label>
+            <input 
+              type="date" 
+              class="input-base input-default"
+            />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Error State -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Error State (Red Border + Message)</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Invalid Email</label>
+            <input 
+              type="email" 
+              class="input-base input-default input-error" 
+              value="invalid-email"
+            />
+            <p class="message-error">
+              <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+              </svg>
+              Please enter a valid email address
+            </p>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Required Field</label>
+            <input 
+              type="text" 
+              class="input-base input-default input-error" 
+              placeholder="This field is required"
+            />
+            <p class="message-error">
+              <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+              </svg>
+              This field is required
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Success State -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Success State (Green Border + Indicator)</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Valid Email</label>
+            <input 
+              type="email" 
+              class="input-base input-default input-success" 
+              value="user@example.com"
+            />
+            <p class="message-success">
+              <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+              </svg>
+              Email is valid
+            </p>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Password Confirmed</label>
+            <input 
+              type="password" 
+              class="input-base input-default input-success" 
+              value="password123"
+            />
+            <p class="message-success">
+              <svg class="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+              </svg>
+              Passwords match
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Disabled State -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Disabled State (Opacity 0.5)</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2 opacity-50">Disabled Input</label>
+            <input 
+              type="text" 
+              class="input-base input-default" 
+              placeholder="Cannot edit this field"
+              disabled
+            />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Helper Text -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Helper Text</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Username</label>
+            <input 
+              type="text" 
+              class="input-base input-default" 
+              placeholder="johndoe"
+            />
+            <p class="message-helper">
+              Choose a unique username between 3-20 characters
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Focus State Test -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Focus State Test</h2>
+        <p class="text-sm text-gray-600 mb-4">Click or tab into the inputs below to see the focus glow effect</p>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Default Focus (Blue Glow)</label>
+            <input 
+              type="text" 
+              class="input-base input-default" 
+              placeholder="Focus to see blue glow"
+            />
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Error Focus (Red Glow)</label>
+            <input 
+              type="text" 
+              class="input-base input-default input-error" 
+              placeholder="Focus to see red glow"
+            />
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium mb-2">Success Focus (Green Glow)</label>
+            <input 
+              type="text" 
+              class="input-base input-default input-success" 
+              placeholder="Focus to see green glow"
+            />
+          </div>
+        </div>
+      </div>
+      
+      <!-- Transition Test -->
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold mb-4">Smooth Transitions (200ms ease-smooth)</h2>
+        <p class="text-sm text-gray-600 mb-4">Hover and focus to verify smooth 200ms transitions</p>
+        <div class="space-y-4">
+          <div>
+            <input 
+              type="text" 
+              class="input-base input-default" 
+              placeholder="Hover and focus to test transitions"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Verification Checklist -->
+    <div class="bg-white rounded-xl shadow-md p-8">
+      <h2 class="text-2xl font-bold mb-4">Verification Checklist</h2>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ All inputs have consistent height (h-12 / 48px)</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ All inputs have consistent padding (px-4 / 16px horizontal)</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ Focus state shows border color change and subtle glow (box-shadow)</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ Error state displays red border and error message with icon</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ Success state displays green border and success indicator with icon</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ Text inputs, date pickers styled consistently</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ Smooth transitions (200ms ease-smooth) on state changes</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ Disabled state shows opacity 0.5 and prevents interaction</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ Helper text displays below input in muted color</span>
+        </label>
+        <label class="flex items-start gap-3">
+          <input type="checkbox" class="mt-1">
+          <span>✓ All transitions are smooth and not jarring</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

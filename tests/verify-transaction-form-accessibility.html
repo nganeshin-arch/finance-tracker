@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransactionForm Accessibility Verification</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .test-section h2 {
+            color: #2d3748;
+            margin-top: 0;
+        }
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        .checklist li {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 4px;
+            border-left: 4px solid #e2e8f0;
+        }
+        .checklist li.pass {
+            border-left-color: #48bb78;
+            background: #f0fff4;
+        }
+        .checklist li.fail {
+            border-left-color: #f56565;
+            background: #fff5f5;
+        }
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .keyboard-test {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .focus-indicator {
+            outline: 2px solid #3182ce;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        }
+        .error-example {
+            color: #e53e3e;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .success-example {
+            color: #38a169;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        .aria-example {
+            background: #bee3f8;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>TransactionForm Accessibility Verification Guide</h1>
+    <p><strong>Task 8.7:</strong> Verify TransactionForm accessibility compliance</p>
+    <p><strong>Validates:</strong> Requirements 8.6, 11.2, 11.6</p>
+
+    <div class="test-section">
+        <h2>🎯 Test Overview</h2>
+        <p>This guide helps verify that the TransactionForm component meets WCAG 2.1 AA accessibility standards through manual and automated testing.</p>
+        
+        <h3>Requirements Being Validated:</h3>
+        <ul>
+            <li><strong>8.6:</strong> TransactionForm accessibility compliance</li>
+            <li><strong>11.2:</strong> Visible focus indicators on all interactive elements</li>
+            <li><strong>11.6:</strong> Form accessibility (proper labels, error announcements, keyboard navigation)</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>⌨️ Keyboard Navigation Test</h2>
+        <p>Test that all form fields can be navigated using only the keyboard:</p>
+        
+        <div class="keyboard-test">
+            <h4>Manual Test Steps:</h4>
+            <ol>
+                <li>Open the TransactionForm in your application</li>
+                <li>Press <kbd>Tab</kbd> to navigate through all form fields</li>
+                <li>Verify each field receives focus and shows a visible focus indicator</li>
+                <li>Use <kbd>Shift+Tab</kbd> to navigate backwards</li>
+                <li>Test form submission using <kbd>Enter</kbd> or <kbd>Space</kbd> on buttons</li>
+            </ol>
+        </div>
+
+        <ul class="checklist">
+            <li>✅ All form fields are reachable via Tab key</li>
+            <li>✅ Tab order follows logical sequence (top to bottom, left to right)</li>
+            <li>✅ Focus indicators are visible on all interactive elements</li>
+            <li>✅ Focus indicators have sufficient contrast (3:1 minimum)</li>
+            <li>✅ Buttons can be activated with Space or Enter keys</li>
+            <li>✅ Select dropdowns can be opened with Space or Enter</li>
+        </ul>
+
+        <div class="aria-example">
+            Expected focus indicator styles:
+            <br>outline: 2px solid #3182ce;
+            <br>outline-offset: 2px;
+            <br>box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🏷️ Label Association Test</h2>
+        <p>Verify that all form fields have properly associated labels:</p>
+
+        <ul class="checklist">
+            <li>✅ Date field has label "Transaction Date" with for="date"</li>
+            <li>✅ Transaction Type has label with for="transactionTypeId"</li>
+            <li>✅ Category has label with for="categoryId"</li>
+            <li>✅ Sub-Category has label with for="subCategoryId"</li>
+            <li>✅ Payment Mode has label with for="paymentModeId"</li>
+            <li>✅ Account has label with for="accountId"</li>
+            <li>✅ Amount has label with for="amount"</li>
+            <li>✅ Description has label with for="description"</li>
+        </ul>
+
+        <div class="code-block">
+// Expected HTML structure for each field:
+&lt;label for="fieldId"&gt;Field Label&lt;/label&gt;
+&lt;input id="fieldId" aria-label="Field Label" aria-required="true" /&gt;
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔊 Screen Reader Announcements Test</h2>
+        <p>Test that screen readers properly announce form labels and errors:</p>
+
+        <ul class="checklist">
+            <li>✅ Field labels are announced when focusing inputs</li>
+            <li>✅ Required field status is announced (aria-required="true")</li>
+            <li>✅ Error messages are announced immediately when they appear</li>
+            <li>✅ Error messages have role="alert" for immediate announcement</li>
+            <li>✅ Success messages are announced when validation passes</li>
+            <li>✅ Form submission results are announced</li>
+        </ul>
+
+        <div class="keyboard-test">
+            <h4>Screen Reader Testing:</h4>
+            <ol>
+                <li>Enable screen reader (NVDA, JAWS, VoiceOver, or browser extension)</li>
+                <li>Navigate through form fields and listen to announcements</li>
+                <li>Trigger validation errors and verify they're announced</li>
+                <li>Submit form and verify success/error messages are announced</li>
+            </ol>
+        </div>
+
+        <div class="aria-example">
+            Expected ARIA attributes:
+            <br>aria-label="Field description"
+            <br>aria-required="true" (for required fields)
+            <br>aria-invalid="true" (when field has error)
+            <br>aria-describedby="fieldId-error" (when error present)
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>⚠️ Error Handling Test</h2>
+        <p>Test that form validation errors are accessible:</p>
+
+        <div class="keyboard-test">
+            <h4>Error Testing Steps:</h4>
+            <ol>
+                <li>Leave required fields empty and submit form</li>
+                <li>Enter invalid data (negative amount, future date if restricted)</li>
+                <li>Verify error messages appear with proper styling</li>
+                <li>Check that errors are associated with fields via aria-describedby</li>
+                <li>Verify errors have role="alert" for screen reader announcement</li>
+            </ol>
+        </div>
+
+        <ul class="checklist">
+            <li>✅ Error messages appear near their associated fields</li>
+            <li>✅ Error messages have role="alert" attribute</li>
+            <li>✅ Fields with errors have aria-invalid="true"</li>
+            <li>✅ Fields with errors have aria-describedby pointing to error message</li>
+            <li>✅ Error messages have sufficient color contrast</li>
+            <li>✅ Error messages include icons or other non-color indicators</li>
+        </ul>
+
+        <div class="error-example">
+            ❌ Amount is required
+        </div>
+        <div class="success-example">
+            ✅ Valid amount entered
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎨 Visual Focus Indicators Test</h2>
+        <p>Verify that focus indicators meet WCAG contrast requirements:</p>
+
+        <ul class="checklist">
+            <li>✅ Focus indicators are visible on all interactive elements</li>
+            <li>✅ Focus indicators have minimum 3:1 contrast ratio</li>
+            <li>✅ Focus indicators are at least 2px thick or have 2px offset</li>
+            <li>✅ Focus indicators don't obscure the element content</li>
+            <li>✅ Focus indicators work in both light and dark modes</li>
+            <li>✅ Focus indicators are consistent across all form elements</li>
+        </ul>
+
+        <div class="keyboard-test">
+            <h4>Focus Indicator Testing:</h4>
+            <ol>
+                <li>Tab through all form elements</li>
+                <li>Take screenshots of focused elements</li>
+                <li>Use browser dev tools to inspect focus styles</li>
+                <li>Test with high contrast mode enabled</li>
+                <li>Verify focus indicators work with custom themes</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🔧 ARIA Attributes Test</h2>
+        <p>Verify proper ARIA implementation throughout the form:</p>
+
+        <ul class="checklist">
+            <li>✅ Form has descriptive aria-label</li>
+            <li>✅ Required fields have aria-required="true"</li>
+            <li>✅ All fields have descriptive aria-label attributes</li>
+            <li>✅ Select elements have proper aria-expanded states</li>
+            <li>✅ Error states use aria-invalid="true"</li>
+            <li>✅ Error messages are linked via aria-describedby</li>
+            <li>✅ Buttons have descriptive aria-label attributes</li>
+            <li>✅ Form sections use proper heading structure</li>
+        </ul>
+
+        <div class="code-block">
+// Example ARIA implementation:
+&lt;form aria-label="Create transaction form"&gt;
+  &lt;label for="amount"&gt;Amount&lt;/label&gt;
+  &lt;input 
+    id="amount" 
+    aria-label="Amount" 
+    aria-required="true"
+    aria-invalid="false"
+    aria-describedby="amount-error"
+  /&gt;
+  &lt;p id="amount-error" role="alert"&gt;Amount is required&lt;/p&gt;
+&lt;/form&gt;
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>🧪 Automated Test Execution</h2>
+        <p>Run the automated accessibility test suite:</p>
+
+        <div class="code-block">
+# Run the TransactionForm accessibility test
+npx playwright test transaction-form-accessibility-compliance.spec.ts
+
+# Run with verbose output
+npx playwright test transaction-form-accessibility-compliance.spec.ts --reporter=line
+
+# Run specific test
+npx playwright test -g "keyboard navigation"
+        </div>
+
+        <h4>Expected Test Results:</h4>
+        <ul class="checklist">
+            <li>✅ All form fields have proper label association</li>
+            <li>✅ ARIA attributes are correctly implemented</li>
+            <li>✅ Keyboard navigation works through all elements</li>
+            <li>✅ Focus indicators are visible and accessible</li>
+            <li>✅ Screen reader announcements are properly configured</li>
+            <li>✅ Form submission and error handling are accessible</li>
+            <li>✅ Property-based test passes for all interactive elements</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Accessibility Checklist Summary</h2>
+        <p>Complete checklist for TransactionForm accessibility compliance:</p>
+
+        <ul class="checklist">
+            <li>🎯 <strong>Semantic Structure:</strong> Form uses proper HTML5 semantic elements</li>
+            <li>🏷️ <strong>Label Association:</strong> All form fields have associated labels</li>
+            <li>⌨️ <strong>Keyboard Navigation:</strong> All elements are keyboard accessible</li>
+            <li>👁️ <strong>Focus Indicators:</strong> Visible focus indicators on all interactive elements</li>
+            <li>🔊 <strong>Screen Reader Support:</strong> Proper ARIA attributes and announcements</li>
+            <li>⚠️ <strong>Error Handling:</strong> Accessible validation and error messages</li>
+            <li>🎨 <strong>Visual Design:</strong> Sufficient contrast and clear visual hierarchy</li>
+            <li>📱 <strong>Responsive Design:</strong> Accessibility maintained across screen sizes</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>🚀 Next Steps</h2>
+        <p>After completing accessibility verification:</p>
+        <ol>
+            <li>Run automated tests to verify compliance</li>
+            <li>Perform manual testing with keyboard navigation</li>
+            <li>Test with actual screen readers (NVDA, JAWS, VoiceOver)</li>
+            <li>Validate with accessibility tools (axe, WAVE, Lighthouse)</li>
+            <li>Document any issues found and create remediation plan</li>
+            <li>Verify fixes don't break existing functionality</li>
+        </ol>
+    </div>
+
+    <script>
+        // Add interactive focus testing
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('TransactionForm Accessibility Verification Guide loaded');
+            console.log('Use this guide alongside the automated test suite for comprehensive accessibility testing');
+            
+            // Add focus event listeners for demonstration
+            document.addEventListener('focusin', function(e) {
+                if (e.target.matches('input, select, textarea, button')) {
+                    console.log('Focus on:', e.target.tagName, e.target.id || e.target.className);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

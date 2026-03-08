@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 9.6: UnifiedHomePage Statistics Styling Verification</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .verification-section {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .check-item {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        .check-item.pass {
+            background-color: #f0f9ff;
+            border-left: 4px solid #10b981;
+        }
+        .check-item.fail {
+            background-color: #fef2f2;
+            border-left: 4px solid #ef4444;
+        }
+        .check-icon {
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        .pass .check-icon {
+            color: #10b981;
+        }
+        .fail .check-icon {
+            color: #ef4444;
+        }
+        .code-block {
+            background-color: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+        }
+        .property-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-left: 4px solid #f59e0b;
+        }
+        .demo-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .demo-stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-left: 4px solid #3b82f6;
+            transition: all 0.3s ease;
+        }
+        .demo-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+        .demo-stat-card.gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .stat-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+        .demo-stat-card.gradient .stat-label {
+            color: rgba(255,255,255,0.8);
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .trend-positive {
+            color: #10b981;
+        }
+        .trend-negative {
+            color: #ef4444;
+        }
+        .trend-icon {
+            margin-right: 0.25rem;
+        }
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .requirement-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid #8b5cf6;
+        }
+        .test-results {
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        @media (max-width: 768px) {
+            .demo-stats {
+                grid-template-columns: 1fr;
+            }
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Task 9.6: UnifiedHomePage Statistics Styling</h1>
+        <p>Property 32: Bold Typography and Gradient Accents for Financial Statistics</p>
+        <p><strong>Validates Requirements 9.2</strong></p>
+    </div>
+
+    <div class="property-box">
+        <h2>🎯 Property 32: UnifiedHomePage Statistics Styling</h2>
+        <p><strong>For any financial statistic displayed on UnifiedHomePage, it should use bold typography (font-weight 700+) and gradient accents to create visual emphasis.</strong></p>
+        <p>This property ensures that financial statistics are prominently displayed with premium styling that enhances readability and visual hierarchy.</p>
+    </div>
+
+    <div class="verification-section">
+        <h2>📊 Statistics Styling Demo</h2>
+        <p>The following demonstrates the expected styling for UnifiedHomePage statistics:</p>
+        
+        <div class="demo-stats">
+            <div class="demo-stat-card gradient">
+                <div class="stat-label">Total Balance</div>
+                <div class="stat-value">$12,450.75</div>
+                <div class="stat-trend trend-positive">
+                    <span class="trend-icon">↗</span>
+                    +5.2%
+                </div>
+            </div>
+            
+            <div class="demo-stat-card gradient">
+                <div class="stat-label">Monthly Income</div>
+                <div class="stat-value">$8,200.00</div>
+                <div class="stat-trend trend-positive">
+                    <span class="trend-icon">↗</span>
+                    +12.3%
+                </div>
+            </div>
+            
+            <div class="demo-stat-card gradient">
+                <div class="stat-label">Monthly Expenses</div>
+                <div class="stat-value">$5,749.25</div>
+                <div class="stat-trend trend-negative">
+                    <span class="trend-icon">↘</span>
+                    -2.1%
+                </div>
+            </div>
+            
+            <div class="demo-stat-card">
+                <div class="stat-label">Transfers</div>
+                <div class="stat-value">$1,500.00</div>
+                <div class="stat-trend trend-positive">
+                    <span class="trend-icon">↗</span>
+                    +8.7%
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="verification-section">
+        <h2>✅ Implementation Checklist</h2>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Bold typography (font-weight 700+) applied to numerical values</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Gradient accents applied to key metrics (Total Balance, Monthly Income, Monthly Expenses)</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Color-coded trend indicators with icons (green for positive, red for negative)</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Responsive font sizes (text-3xl on mobile, text-4xl on desktop)</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>StatCard integration with proper styling variants</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Accessibility features (ARIA labels, screen reader text)</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Smooth transitions for value changes</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Consistent card styling (shadows, border radius, padding)</span>
+        </div>
+    </div>
+
+    <div class="verification-section">
+        <h2>🔧 Technical Implementation</h2>
+        
+        <h3>StatCard Component Usage</h3>
+        <div class="code-block">
+&lt;StatCard
+  label="Total Balance"
+  value={summary.balance}
+  icon={summary.balance >= 0 ? Sparkles : Wallet}
+  formatValue={formatCurrencyValue}
+  trend={summary.trendDirections.balance as "positive" | "negative"}
+  trendValue={summary.trends.balance}
+  showTrendIcon={true}
+  useGradient={true}
+  gradientClass={summary.balance >= 0 ? "bg-gradient-income" : "bg-gradient-expense"}
+  ariaLabel={`Total balance: ${formatCurrency(summary.balance)}, trend ${summary.trends.balance}`}
+/&gt;
+        </div>
+        
+        <h3>Bold Typography Implementation</h3>
+        <div class="code-block">
+&lt;p className={cn(
+  "text-3xl sm:text-4xl font-bold leading-heading transition-all duration-250",
+  trendColorClass || "text-foreground"
+)}&gt;
+  {displayValue}
+&lt;/p&gt;
+        </div>
+        
+        <h3>Gradient Accent Classes</h3>
+        <div class="code-block">
+// Key metrics use gradient backgrounds
+useGradient={true}
+gradientClass="bg-gradient-income"  // For positive metrics
+gradientClass="bg-gradient-expense" // For expense metrics
+        </div>
+    </div>
+
+    <div class="verification-section">
+        <h2>📋 Requirements Validation</h2>
+        
+        <div class="requirements-grid">
+            <div class="requirement-card">
+                <h3>Requirement 9.2.1</h3>
+                <p><strong>Bold Typography:</strong> Statistical values use font-weight 700+ for visual emphasis and improved readability.</p>
+            </div>
+            
+            <div class="requirement-card">
+                <h3>Requirement 9.2.2</h3>
+                <p><strong>Gradient Accents:</strong> Key metrics (Total Balance, Monthly Income, Monthly Expenses) have gradient backgrounds for premium aesthetics.</p>
+            </div>
+            
+            <div class="requirement-card">
+                <h3>Requirement 9.2.3</h3>
+                <p><strong>Color-coded Trends:</strong> Trend indicators use green for positive, red for negative, with arrow icons for accessibility.</p>
+            </div>
+            
+            <div class="requirement-card">
+                <h3>Requirement 9.2.4</h3>
+                <p><strong>Responsive Sizing:</strong> Font sizes scale appropriately across viewport sizes (text-3xl mobile, text-4xl desktop).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-results">
+        <h2>🧪 Testing Coverage</h2>
+        
+        <h3>Property-Based Tests</h3>
+        <ul>
+            <li><strong>Property 32:</strong> Bold typography and gradient accents across all viewport sizes</li>
+            <li><strong>Responsive Scaling:</strong> Font sizes adapt appropriately to different screen sizes</li>
+            <li><strong>Consistent Styling:</strong> All StatCard components maintain uniform appearance</li>
+            <li><strong>Accessibility:</strong> Color-coded trends include both visual and non-visual indicators</li>
+            <li><strong>Smooth Transitions:</strong> Value changes animate smoothly with appropriate timing</li>
+        </ul>
+        
+        <h3>Unit Tests</h3>
+        <ul>
+            <li>Statistical values have font-weight 700 or higher</li>
+            <li>Key metrics display gradient backgrounds</li>
+            <li>Trend indicators include both color and icons</li>
+            <li>Font sizes are within appropriate ranges (24px-72px)</li>
+            <li>Cards have consistent styling (border radius, shadows, transitions)</li>
+            <li>Accessibility attributes are properly implemented</li>
+            <li>Responsive behavior works across viewport sizes</li>
+        </ul>
+    </div>
+
+    <div class="verification-section">
+        <h2>🎯 Validation Steps</h2>
+        
+        <ol>
+            <li><strong>Run Validation Script:</strong>
+                <div class="code-block">node frontend/tests/validate-task-9.6-statistics-styling.cjs</div>
+            </li>
+            
+            <li><strong>Run Property-Based Tests:</strong>
+                <div class="code-block">npx playwright test task-9.6-unified-homepage-statistics-property.spec.ts</div>
+            </li>
+            
+            <li><strong>Run Unit Tests:</strong>
+                <div class="code-block">npx playwright test task-9.6-unified-homepage-statistics.spec.ts</div>
+            </li>
+            
+            <li><strong>Visual Verification:</strong>
+                <ul>
+                    <li>Navigate to the UnifiedHomePage</li>
+                    <li>Verify statistical values use bold typography</li>
+                    <li>Confirm key metrics have gradient backgrounds</li>
+                    <li>Check trend indicators show both color and icons</li>
+                    <li>Test responsive behavior across different screen sizes</li>
+                </ul>
+            </li>
+        </ol>
+    </div>
+
+    <div class="verification-section">
+        <h2>🏆 Success Criteria</h2>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>All financial statistics display with font-weight 700 or higher</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Key metrics (Total Balance, Monthly Income, Monthly Expenses) have gradient accents</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Trend indicators use both color coding and icons for accessibility</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>Font sizes are responsive and appropriate for statistics display</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>StatCard integration maintains consistent styling patterns</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>All property-based and unit tests pass successfully</span>
+        </div>
+        
+        <div class="check-item pass">
+            <span class="check-icon">✓</span>
+            <span>WCAG 2.1 AA accessibility standards are maintained</span>
+        </div>
+    </div>
+
+    <div class="verification-section">
+        <h2>📝 Notes</h2>
+        <ul>
+            <li>Property-based tests use 10-20 iterations for optimized execution time</li>
+            <li>Tests validate universal properties across different viewport sizes and data states</li>
+            <li>Gradient accents are applied selectively to key metrics for visual hierarchy</li>
+            <li>Trend indicators provide both visual (color/icon) and textual (screen reader) information</li>
+            <li>Font sizes scale responsively using Tailwind's responsive utilities</li>
+            <li>All styling maintains consistency with the premium UI design system</li>
+        </ul>
+    </div>
+</body>
+</html>

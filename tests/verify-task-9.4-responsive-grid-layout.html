@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 9.4: Responsive Grid Layout Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Dashboard Grid Layout Utilities */
+        .dashboard-grid {
+            display: grid;
+            gap: 1rem;
+            width: 100%;
+            transition: gap 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Mobile: 1 column (default) */
+        .dashboard-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        /* Tablet: 2 columns for 2-col grid, 2 columns for 3-col grid, 2 columns for 4-col grid */
+        @media (min-width: 640px) {
+            .dashboard-grid {
+                gap: 1rem;
+            }
+            
+            .dashboard-grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-grid-3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Desktop: Full column count */
+        @media (min-width: 1024px) {
+            .dashboard-grid {
+                gap: 1.25rem;
+            }
+            
+            .dashboard-grid-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .dashboard-grid-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .dashboard-grid-4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        /* Ensure grid items have smooth transitions */
+        .dashboard-grid > * {
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Demo card styling */
+        .demo-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .demo-card.dashboard {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-color: #93c5fd;
+        }
+        
+        .demo-card.form {
+            background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+            border-color: #86efac;
+        }
+        
+        .demo-card.transactions {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-color: #fcd34d;
+        }
+        
+        .viewport-indicator {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 p-4">
+    <div class="viewport-indicator" id="viewportIndicator">
+        Viewport: <span id="viewportSize"></span>
+    </div>
+    
+    <div class="max-w-7xl mx-auto">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Task 9.4: Responsive Grid Layout</h1>
+            <p class="text-gray-600">Resize your browser window to see the responsive grid layout in action</p>
+            <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h2 class="font-semibold text-blue-900 mb-2">Layout Behavior:</h2>
+                <ul class="text-sm text-blue-800 space-y-1">
+                    <li><strong>Mobile (< 640px):</strong> 1 column layout</li>
+                    <li><strong>Tablet (640px - 1023px):</strong> 2 column layout</li>
+                    <li><strong>Desktop (≥ 1024px):</strong> 3 column layout</li>
+                </ul>
+            </div>
+        </header>
+        
+        <!-- View Mode Selector (Full Width) -->
+        <div class="mb-6">
+            <div class="demo-card">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">View Mode Selector</h3>
+                <p class="text-gray-600">Full width across all breakpoints</p>
+            </div>
+        </div>
+        
+        <!-- Responsive Grid Layout -->
+        <div class="dashboard-grid dashboard-grid-3 gap-6 sm:gap-6 lg:gap-8">
+            <!-- Dashboard Section - Spans 2 columns on tablet+, 2 columns on desktop -->
+            <section class="col-span-1 sm:col-span-2 lg:col-span-2">
+                <div class="demo-card dashboard h-full">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-2">Dashboard Section</h3>
+                    <p class="text-blue-600 text-sm mb-4">Contains financial overview and charts</p>
+                    <div class="text-xs text-blue-500">
+                        <div>Mobile: 1 column (full width)</div>
+                        <div>Tablet: 2 columns</div>
+                        <div>Desktop: 2 columns</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Transaction Form Section - Spans 1 column on all breakpoints -->
+            <section class="col-span-1">
+                <div class="demo-card form h-full">
+                    <h3 class="text-lg font-semibold text-green-800 mb-2">Add Transaction</h3>
+                    <p class="text-green-600 text-sm mb-4">Transaction form</p>
+                    <div class="text-xs text-green-500">
+                        <div>Mobile: 1 column (full width)</div>
+                        <div>Tablet: 1 column</div>
+                        <div>Desktop: 1 column</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Transactions Section - Spans full width across all columns -->
+            <section class="col-span-1 sm:col-span-2 lg:col-span-3">
+                <div class="demo-card transactions">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-2">Transactions Section</h3>
+                    <p class="text-yellow-600 text-sm mb-4">Transaction table/calendar view</p>
+                    <div class="text-xs text-yellow-500">
+                        <div>Mobile: 1 column (full width)</div>
+                        <div>Tablet: 2 columns (full width)</div>
+                        <div>Desktop: 3 columns (full width)</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Grid Layout Analysis -->
+        <div class="mt-8 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Grid Layout Analysis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Mobile Layout</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Single column layout</li>
+                        <li>• All sections stack vertically</li>
+                        <li>• 16px gap between sections</li>
+                        <li>• Optimal for narrow screens</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Tablet Layout</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Two column grid</li>
+                        <li>• Dashboard spans 2 columns</li>
+                        <li>• Form takes 1 column</li>
+                        <li>• Transactions span full width</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800 mb-2">Desktop Layout</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Three column grid</li>
+                        <li>• Dashboard spans 2 columns</li>
+                        <li>• Form takes 1 column</li>
+                        <li>• Transactions span all 3 columns</li>
+                        <li>• 20px gap for better spacing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Implementation Details -->
+        <div class="mt-6 p-6 bg-gray-50 border border-gray-200 rounded-lg">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Implementation Details</h2>
+            <div class="space-y-4">
+                <div>
+                    <h3 class="font-semibold text-gray-800">CSS Grid Classes Used:</h3>
+                    <code class="text-sm bg-gray-100 px-2 py-1 rounded">dashboard-grid dashboard-grid-3 gap-6 sm:gap-6 lg:gap-8</code>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800">Column Span Classes:</h3>
+                    <ul class="text-sm text-gray-600 mt-2 space-y-1">
+                        <li>• Dashboard: <code class="bg-gray-100 px-1 rounded">col-span-1 sm:col-span-2 lg:col-span-2</code></li>
+                        <li>• Form: <code class="bg-gray-100 px-1 rounded">col-span-1</code></li>
+                        <li>• Transactions: <code class="bg-gray-100 px-1 rounded">col-span-1 sm:col-span-2 lg:col-span-3</code></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-800">Equal Height Cards:</h3>
+                    <p class="text-sm text-gray-600">All cards use <code class="bg-gray-100 px-1 rounded">h-full</code> class for consistent heights within grid rows</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateViewportIndicator() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const viewportSize = document.getElementById('viewportSize');
+            
+            let breakpoint = '';
+            if (width < 640) {
+                breakpoint = 'Mobile';
+            } else if (width < 1024) {
+                breakpoint = 'Tablet';
+            } else {
+                breakpoint = 'Desktop';
+            }
+            
+            viewportSize.textContent = `${width}x${height} (${breakpoint})`;
+        }
+        
+        // Update on load and resize
+        updateViewportIndicator();
+        window.addEventListener('resize', updateViewportIndicator);
+        
+        // Add visual feedback for grid changes
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            document.body.style.outline = '3px solid #3b82f6';
+            resizeTimeout = setTimeout(() => {
+                document.body.style.outline = 'none';
+            }, 500);
+        });
+    </script>
+</body>
+</html>

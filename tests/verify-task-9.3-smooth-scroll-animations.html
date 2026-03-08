@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 9.3: Smooth Scroll Animations Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Respect reduced motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+        
+        /* Fade-in animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        /* Stagger animation delays */
+        .stagger-1 { animation-delay: 0ms; }
+        .stagger-2 { animation-delay: 150ms; }
+        .stagger-3 { animation-delay: 300ms; }
+        .stagger-4 { animation-delay: 450ms; }
+        .stagger-5 { animation-delay: 600ms; }
+        .stagger-6 { animation-delay: 750ms; }
+        
+        /* Initial state for animations */
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        /* Card hover effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Navigation button effects */
+        .nav-button {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-button:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+        
+        /* Gradient backgrounds */
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #0369a1 100%);
+        }
+        
+        .bg-gradient-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+        }
+        
+        .bg-gradient-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+        }
+        
+        .bg-gradient-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header with Navigation -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+                    Task 9.3: Smooth Scroll Animations
+                </h1>
+                
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex items-center gap-6">
+                    <button onclick="scrollToSection('dashboard-section')" 
+                            class="nav-button text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md">
+                        Dashboard
+                    </button>
+                    <button onclick="scrollToSection('form-section')" 
+                            class="nav-button text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md">
+                        Form Section
+                    </button>
+                    <button onclick="scrollToSection('content-section')" 
+                            class="nav-button text-sm font-medium text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md">
+                        Content Section
+                    </button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 space-y-12">
+        <!-- Introduction Section -->
+        <section class="fade-in-element animate-fade-in stagger-1">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <h2 class="text-3xl font-bold mb-4">Smooth Scroll Animations Demo</h2>
+                <p class="text-gray-600 mb-6">
+                    This page demonstrates the smooth scroll animations implemented in Task 9.3:
+                </p>
+                <ul class="space-y-2 text-gray-600">
+                    <li>✅ <strong>Smooth scroll behavior</strong> - Click navigation links to see smooth scrolling</li>
+                    <li>✅ <strong>Fade-in animations</strong> - Sections fade in with staggered delays</li>
+                    <li>✅ <strong>Stagger effects</strong> - Dashboard cards animate with sequential delays</li>
+                    <li>✅ <strong>Accessibility</strong> - Respects prefers-reduced-motion preferences</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Dashboard Section with Staggered Cards -->
+        <section id="dashboard-section" class="fade-in-element animate-fade-in stagger-2">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="h-8 w-1 bg-gradient-primary rounded-full"></div>
+                    <h2 class="text-3xl font-bold">Dashboard Section</h2>
+                </div>
+                
+                <!-- Staggered Dashboard Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="fade-in-element animate-fade-in stagger-3 bg-gradient-success text-white p-6 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold mb-2">Total Balance</h3>
+                        <p class="text-3xl font-bold">$12,450.00</p>
+                        <p class="text-sm opacity-90 mt-2">↗ +5.2% from last month</p>
+                    </div>
+                    
+                    <div class="fade-in-element animate-fade-in stagger-4 bg-gradient-primary text-white p-6 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold mb-2">Monthly Income</h3>
+                        <p class="text-3xl font-bold">$8,200.00</p>
+                        <p class="text-sm opacity-90 mt-2">↗ +2.1% from last month</p>
+                    </div>
+                    
+                    <div class="fade-in-element animate-fade-in stagger-5 bg-gradient-danger text-white p-6 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold mb-2">Monthly Expenses</h3>
+                        <p class="text-3xl font-bold">$3,750.00</p>
+                        <p class="text-sm opacity-90 mt-2">↘ -1.8% from last month</p>
+                    </div>
+                    
+                    <div class="fade-in-element animate-fade-in stagger-6 bg-gradient-warning text-white p-6 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold mb-2">Transfers</h3>
+                        <p class="text-3xl font-bold">$1,500.00</p>
+                        <p class="text-sm opacity-90 mt-2">→ 0% from last month</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Form Section -->
+        <section id="form-section" class="fade-in-element animate-fade-in stagger-3">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="h-6 w-1 bg-gradient-primary rounded-full"></div>
+                    <h2 class="text-2xl font-bold">Form Section</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Transaction Type</label>
+                        <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                            <option>Income</option>
+                            <option>Expense</option>
+                            <option>Transfer</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+                        <input type="number" placeholder="0.00" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <textarea placeholder="Enter transaction description..." 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 h-24"></textarea>
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <button class="bg-gradient-primary text-white px-6 py-3 rounded-lg font-semibold hover:scale-105 active:scale-95 transition-all duration-200 shadow-lg hover:shadow-xl">
+                            Add Transaction
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section id="content-section" class="fade-in-element animate-fade-in stagger-4">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="h-6 w-1 bg-gradient-primary rounded-full"></div>
+                    <h2 class="text-2xl font-bold">Content Section</h2>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-semibold mb-3">Implementation Features</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <h4 class="font-medium text-gray-900">Smooth Scroll</h4>
+                                <p class="text-sm text-gray-600">Global smooth scroll behavior with accessibility support</p>
+                            </div>
+                            <div class="space-y-2">
+                                <h4 class="font-medium text-gray-900">Fade-in Animations</h4>
+                                <p class="text-sm text-gray-600">Sections fade in with staggered timing</p>
+                            </div>
+                            <div class="space-y-2">
+                                <h4 class="font-medium text-gray-900">Stagger Effects</h4>
+                                <p class="text-sm text-gray-600">Dashboard cards animate sequentially</p>
+                            </div>
+                            <div class="space-y-2">
+                                <h4 class="font-medium text-gray-900">Hover Effects</h4>
+                                <p class="text-sm text-gray-600">Interactive elements respond to user actions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                        <h3 class="text-lg font-semibold mb-3 text-blue-900">Accessibility Features</h3>
+                        <ul class="space-y-2 text-blue-800">
+                            <li>• Respects <code>prefers-reduced-motion</code> user preference</li>
+                            <li>• Keyboard navigation support for all interactive elements</li>
+                            <li>• Proper focus management and visible focus indicators</li>
+                            <li>• ARIA labels and semantic HTML structure</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Test Controls -->
+        <section class="fade-in-element animate-fade-in stagger-5">
+            <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
+                <h2 class="text-2xl font-bold mb-6">Test Controls</h2>
+                <div class="flex flex-wrap gap-4">
+                    <button onclick="scrollToTop()" 
+                            class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:scale-105 active:scale-95 transition-all duration-200">
+                        Scroll to Top
+                    </button>
+                    <button onclick="toggleReducedMotion()" 
+                            class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:scale-105 active:scale-95 transition-all duration-200">
+                        Toggle Reduced Motion
+                    </button>
+                    <button onclick="replayAnimations()" 
+                            class="bg-green-600 text-white px-4 py-2 rounded-lg hover:scale-105 active:scale-95 transition-all duration-200">
+                        Replay Animations
+                    </button>
+                </div>
+                <p class="text-sm text-gray-600 mt-4">
+                    Use these controls to test different aspects of the smooth scroll animations.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scroll to section function
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest'
+                });
+            }
+        }
+        
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Toggle reduced motion for testing
+        function toggleReducedMotion() {
+            const body = document.body;
+            const isReduced = body.classList.contains('reduce-motion');
+            
+            if (isReduced) {
+                body.classList.remove('reduce-motion');
+                body.style.removeProperty('--animation-duration');
+                alert('Reduced motion disabled - animations restored');
+            } else {
+                body.classList.add('reduce-motion');
+                body.style.setProperty('--animation-duration', '0.01ms');
+                alert('Reduced motion enabled - animations minimized');
+            }
+        }
+        
+        // Replay animations
+        function replayAnimations() {
+            const elements = document.querySelectorAll('.fade-in-element');
+            elements.forEach(el => {
+                el.classList.remove('animate-fade-in');
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+            });
+            
+            setTimeout(() => {
+                elements.forEach(el => {
+                    el.classList.add('animate-fade-in');
+                });
+            }, 100);
+        }
+        
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Trigger animations after a short delay
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.fade-in-element');
+                elements.forEach(el => {
+                    el.classList.add('animate-fade-in');
+                });
+            }, 200);
+        });
+        
+        // Add CSS for reduced motion testing
+        const style = document.createElement('style');
+        style.textContent = `
+            .reduce-motion *,
+            .reduce-motion *::before,
+            .reduce-motion *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

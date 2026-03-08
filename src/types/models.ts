@@ -18,6 +18,17 @@ export interface User {
   updatedAt: Date;
 }
 
+export interface UserPreferences {
+  id: number;
+  userId: number;
+  monthlyStartDate: number; // Day of month (1-31)
+  timezone: string;
+  currency: string;
+  dateFormat: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface UserSummary {
   id: number;
   email: string;

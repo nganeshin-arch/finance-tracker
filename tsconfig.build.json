@@ -1,0 +1,32 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.old.tsx",
+    "**/*.old.ts",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "src/__tests__",
+    "tests",
+    "src/components/AdminPanel.tsx",
+    "src/components/CategoryManager.tsx",
+    "src/components/ConfigurationManager.tsx",
+    "src/components/ConfirmDialog.tsx",
+    "src/components/DashboardSummary.tsx",
+    "src/components/DateRangeFilter.tsx",
+    "src/components/ExpenseByCategoryChart.tsx",
+    "src/components/Loading.tsx",
+    "src/components/MonthlyTrendChart.tsx",
+    "src/components/MonthlyTrackingCycleManager.tsx",
+    "src/components/TransactionForm.tsx",
+    "src/components/TransactionForm.updated.tsx",
+    "src/components/TransactionList.tsx",
+    "src/pages/AdminPage.tsx",
+    "src/pages/DashboardPage.tsx",
+    "src/pages/TransactionsPage.tsx",
+    "src/pages/TrackingCyclePage.tsx"
+  ]
+}

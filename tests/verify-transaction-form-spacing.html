@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransactionForm Spacing Consistency Verification</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .test-container {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .test-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+        .test-section {
+            margin-bottom: 24px;
+        }
+        .test-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+        .test-result {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 14px;
+        }
+        .test-pass {
+            background: #dcfce7;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+        }
+        .test-fail {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+        }
+        .test-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1d4ed8;
+        }
+        .test-warning {
+            background: #fffbeb;
+            border: 1px solid #fed7aa;
+            color: #d97706;
+        }
+        .summary {
+            background: #f1f5f9;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 24px;
+        }
+        .summary-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+        .metric {
+            display: inline-block;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin: 4px;
+            border: 1px solid #e2e8f0;
+        }
+        .metric-value {
+            font-weight: 700;
+            font-size: 18px;
+        }
+        .metric-label {
+            font-size: 12px;
+            color: #64748b;
+            text-transform: uppercase;
+        }
+        .instructions {
+            background: #fef3c7;
+            border: 1px solid #fbbf24;
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #92400e;
+        }
+        .instructions ol {
+            margin-bottom: 0;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        .viewport-controls {
+            margin-bottom: 20px;
+        }
+        .viewport-button {
+            background: #6b7280;
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+        .viewport-button.active {
+            background: #059669;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            🧪 TransactionForm Spacing Consistency Verification
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Instructions</h3>
+            <ol>
+                <li>Make sure the Personal Finance App is running on <strong>http://localhost:5173</strong></li>
+                <li>Login with credentials: <strong>admin@example.com</strong> / <strong>Admin123!@#</strong></li>
+                <li>Navigate to <strong>Transactions</strong> and click <strong>"Add Transaction"</strong></li>
+                <li>Come back to this page and click <strong>"Run Spacing Tests"</strong></li>
+                <li>Test different viewport sizes using the viewport buttons</li>
+            </ol>
+        </div>
+
+        <div class="viewport-controls">
+            <button class="viewport-button" onclick="setViewport(375, 667, this)">📱 Mobile</button>
+            <button class="viewport-button" onclick="setViewport(768, 1024, this)">📱 Tablet</button>
+            <button class="viewport-button active" onclick="setViewport(1200, 800, this)">💻 Desktop</button>
+        </div>
+
+        <button onclick="runSpacingTests()" id="runTestsBtn">🚀 Run Spacing Tests</button>
+        <button onclick="clearResults()" id="clearBtn">🗑️ Clear Results</button>
+
+        <div id="testResults"></div>
+
+        <div class="summary" id="testSummary" style="display: none;">
+            <div class="summary-title">📊 Test Summary</div>
+            <div id="summaryMetrics"></div>
+        </div>
+    </div>
+
+    <script>
+        let testResults = [];
+        let currentViewport = 'Desktop';
+
+        function setViewport(width, height, button) {
+            // Update active button
+            document.querySelectorAll('.viewport-button').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Set viewport
+            window.resizeTo(width, height);
+            currentViewport = button.textContent.trim();
+            
+            addResult('info', `Viewport changed to ${currentViewport} (${width}x${height})`);
+        }
+
+        function addResult(type, message) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result test-${type}`;
+            resultDiv.textContent = message;
+            
+            document.getElementById('testResults').appendChild(resultDiv);
+            
+            // Auto-scroll to bottom
+            resultDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = '';
+            document.getElementById('testSummary').style.display = 'none';
+            testResults = [];
+        }
+
+        async function runSpacingTests() {
+            const runBtn = document.getElementById('runTestsBtn');
+            runBtn.disabled = true;
+            runBtn.textContent = '🔄 Running Tests...';
+            
+            clearResults();
+            testResults = [];
+            
+            addResult('info', `🧪 Starting TransactionForm Spacing Consistency Tests on ${currentViewport}`);
+            addResult('info', `📐 Current viewport: ${window.innerWidth}x${window.innerHeight}`);
+            
+            try {
+                // Open the TransactionForm in a new window/tab
+                const appWindow = window.open('http://localhost:5173', 'appWindow', 'width=1200,height=800');
+                
+                if (!appWindow) {
+                    addResult('fail', '❌ Could not open app window. Please disable popup blocker and try again.');
+                    return;
+                }
+                
+                addResult('info', '🌐 Opened app window, waiting for load...');
+                
+                // Wait for the app to load
+                await new Promise(resolve => setTimeout(resolve, 3000));
+                
+                // Check if we can access the app window
+                try {
+                    const appDoc = appWindow.document;
+                    addResult('pass', '✅ App window accessible');
+                    
+                    // Run the spacing tests
+                    await runFormSpacingTests(appDoc);
+                    
+                } catch (error) {
+                    addResult('fail', `❌ Cannot access app window: ${error.message}`);
+                    addResult('warning', '⚠️ This might be due to CORS restrictions. Please manually navigate to the TransactionForm and run tests there.');
+                    
+                    // Provide manual testing instructions
+                    addResult('info', '📋 Manual Testing Instructions:');
+                    addResult('info', '1. Open browser dev tools (F12)');
+                    addResult('info', '2. Navigate to TransactionForm in the app');
+                    addResult('info', '3. Copy and paste the test code from the console');
+                }
+                
+                // Close the app window
+                setTimeout(() => {
+                    if (appWindow && !appWindow.closed) {
+                        appWindow.close();
+                    }
+                }, 1000);
+                
+            } catch (error) {
+                addResult('fail', `❌ Test execution failed: ${error.message}`);
+            } finally {
+                runBtn.disabled = false;
+                runBtn.textContent = '🚀 Run Spacing Tests';
+                
+                // Show summary
+                showTestSummary();
+            }
+        }
+
+        async function runFormSpacingTests(doc) {
+            addResult('info', '🔍 Analyzing TransactionForm spacing...');
+            
+            // Test 1: Form field container spacing
+            addResult('info', '📏 Test 1: Form field container spacing consistency');
+            
+            const containers = doc.querySelectorAll('.space-y-2');
+            addResult('info', `Found ${containers.length} form field containers`);
+            
+            if (containers.length >= 2) {
+                const spacingData = Array.from(containers).map((container, index) => {
+                    const computed = window.getComputedStyle(container);
+                    return {
+                        index,
+                        marginTop: computed.marginTop,
+                        marginBottom: computed.marginBottom,
+                        paddingTop: computed.paddingTop,
+                        paddingBottom: computed.paddingBottom,
+                        id: container.querySelector('input, textarea, [role="combobox"]')?.id || `container-${index}`,
+                    };
+                });
+                
+                const firstContainer = spacingData[0];
+                let consistentContainers = 0;
+                
+                for (let i = 1; i < spacingData.length; i++) {
+                    const container = spacingData[i];
+                    const isConsistent = container.marginTop === firstContainer.marginTop &&
+                                       container.marginBottom === firstContainer.marginBottom;
+                    
+                    if (isConsistent) {
+                        consistentContainers++;
+                        addResult('pass', `✅ Container ${i} (${container.id}): Consistent spacing`);
+                        testResults.push({ test: 'container-spacing', result: 'pass' });
+                    } else {
+                        addResult('fail', `❌ Container ${i} (${container.id}): Inconsistent spacing`);
+                        addResult('info', `   Expected: margin(${firstContainer.marginTop}, ${firstContainer.marginBottom})`);
+                        addResult('info', `   Actual: margin(${container.marginTop}, ${container.marginBottom})`);
+                        testResults.push({ test: 'container-spacing', result: 'fail' });
+                    }
+                }
+                
+                const containerRate = (consistentContainers / (spacingData.length - 1)) * 100;
+                addResult('info', `📊 Container spacing consistency: ${consistentContainers}/${spacingData.length - 1} (${containerRate.toFixed(1)}%)`);
+            } else {
+                addResult('warning', '⚠️ Not enough containers to test spacing consistency');
+            }
+            
+            // Test 2: Adjacent element gaps
+            addResult('info', '📐 Test 2: Adjacent element gaps consistency');
+            
+            const adjacentSpacing = [];
+            for (let i = 0; i < containers.length - 1; i++) {
+                const current = containers[i];
+                const next = containers[i + 1];
+                
+                const currentRect = current.getBoundingClientRect();
+                const nextRect = next.getBoundingClientRect();
+                
+                const gap = nextRect.top - (currentRect.top + currentRect.height);
+                
+                adjacentSpacing.push({
+                    currentIndex: i,
+                    nextIndex: i + 1,
+                    gap: Math.round(gap),
+                    currentId: current.querySelector('input, textarea, [role="combobox"]')?.id || `element-${i}`,
+                    nextId: next.querySelector('input, textarea, [role="combobox"]')?.id || `element-${i + 1}`,
+                });
+            }
+            
+            addResult('info', `Found ${adjacentSpacing.length} adjacent element pairs`);
+            
+            if (adjacentSpacing.length >= 2) {
+                const expectedGap = adjacentSpacing[0].gap;
+                const tolerance = 3;
+                let consistentGaps = 0;
+                
+                for (const spacing of adjacentSpacing) {
+                    const isConsistent = Math.abs(spacing.gap - expectedGap) <= tolerance;
+                    
+                    if (isConsistent) {
+                        consistentGaps++;
+                        addResult('pass', `✅ Gap ${spacing.currentId} → ${spacing.nextId}: ${spacing.gap}px`);
+                        testResults.push({ test: 'gap-consistency', result: 'pass' });
+                    } else {
+                        addResult('fail', `❌ Gap ${spacing.currentId} → ${spacing.nextId}: ${spacing.gap}px (expected ~${expectedGap}px)`);
+                        testResults.push({ test: 'gap-consistency', result: 'fail' });
+                    }
+                }
+                
+                const gapRate = (consistentGaps / adjacentSpacing.length) * 100;
+                addResult('info', `📊 Gap consistency: ${consistentGaps}/${adjacentSpacing.length} (${gapRate.toFixed(1)}%)`);
+            }
+            
+            // Test 3: Input field padding consistency
+            addResult('info', '📦 Test 3: Input field padding consistency');
+            
+            const inputSelectors = [
+                'input[type="date"]',
+                'input[type="number"]',
+                'textarea',
+                '[role="combobox"]',
+            ];
+            
+            const inputPadding = [];
+            
+            for (const selector of inputSelectors) {
+                const elements = doc.querySelectorAll(selector);
+                
+                Array.from(elements).forEach((el, index) => {
+                    const computed = window.getComputedStyle(el);
+                    inputPadding.push({
+                        selector,
+                        index,
+                        paddingTop: computed.paddingTop,
+                        paddingRight: computed.paddingRight,
+                        paddingBottom: computed.paddingBottom,
+                        paddingLeft: computed.paddingLeft,
+                        id: el.id || `${selector.replace(/[^\w]/g, '')}-${index}`,
+                    });
+                });
+            }
+            
+            addResult('info', `Found ${inputPadding.length} input fields`);
+            
+            // Group by input type
+            const inputsByType = inputPadding.reduce((acc, input) => {
+                const key = input.selector;
+                if (!acc[key]) acc[key] = [];
+                acc[key].push(input);
+                return acc;
+            }, {});
+            
+            let totalPaddingTests = 0;
+            let passedPaddingTests = 0;
+            
+            for (const [inputType, inputs] of Object.entries(inputsByType)) {
+                if (inputs.length >= 2) {
+                    addResult('info', `  Testing ${inputs.length} ${inputType} fields:`);
+                    
+                    const firstInput = inputs[0];
+                    
+                    for (let i = 1; i < inputs.length; i++) {
+                        totalPaddingTests++;
+                        const input = inputs[i];
+                        
+                        const isConsistent = input.paddingTop === firstInput.paddingTop &&
+                                           input.paddingRight === firstInput.paddingRight &&
+                                           input.paddingBottom === firstInput.paddingBottom &&
+                                           input.paddingLeft === firstInput.paddingLeft;
+                        
+                        if (isConsistent) {
+                            passedPaddingTests++;
+                            addResult('pass', `    ✅ ${inputType}[${i}] (${input.id}): Consistent padding`);
+                            testResults.push({ test: 'padding-consistency', result: 'pass' });
+                        } else {
+                            addResult('fail', `    ❌ ${inputType}[${i}] (${input.id}): Inconsistent padding`);
+                            addResult('info', `       Expected: ${firstInput.paddingTop} ${firstInput.paddingRight} ${firstInput.paddingBottom} ${firstInput.paddingLeft}`);
+                            addResult('info', `       Actual: ${input.paddingTop} ${input.paddingRight} ${input.paddingBottom} ${input.paddingLeft}`);
+                            testResults.push({ test: 'padding-consistency', result: 'fail' });
+                        }
+                    }
+                }
+            }
+            
+            if (totalPaddingTests > 0) {
+                const paddingRate = (passedPaddingTests / totalPaddingTests) * 100;
+                addResult('info', `📊 Padding consistency: ${passedPaddingTests}/${totalPaddingTests} (${paddingRate.toFixed(1)}%)`);
+            }
+            
+            // Test 4: Form element alignment
+            addResult('info', '📏 Test 4: Form element alignment');
+            
+            const alignmentData = [];
+            
+            for (let i = 0; i < containers.length; i++) {
+                const container = containers[i];
+                const label = container.querySelector('label');
+                const input = container.querySelector('input, textarea, [role="combobox"]');
+                
+                if (label && input) {
+                    const labelRect = label.getBoundingClientRect();
+                    const inputRect = input.getBoundingClientRect();
+                    
+                    alignmentData.push({
+                        index: i,
+                        labelLeft: Math.round(labelRect.left),
+                        inputLeft: Math.round(inputRect.left),
+                        labelId: label.getAttribute('for') || `label-${i}`,
+                        inputId: input.id || `input-${i}`,
+                    });
+                }
+            }
+            
+            addResult('info', `Found ${alignmentData.length} form field pairs (label + input)`);
+            
+            if (alignmentData.length >= 2) {
+                const firstLabelLeft = alignmentData[0].labelLeft;
+                const firstInputLeft = alignmentData[0].inputLeft;
+                const tolerance = 3;
+                
+                let alignedLabels = 0;
+                let alignedInputs = 0;
+                
+                for (let i = 1; i < alignmentData.length; i++) {
+                    const data = alignmentData[i];
+                    
+                    const labelAligned = Math.abs(data.labelLeft - firstLabelLeft) <= tolerance;
+                    const inputAligned = Math.abs(data.inputLeft - firstInputLeft) <= tolerance;
+                    
+                    if (labelAligned) {
+                        alignedLabels++;
+                        addResult('pass', `  ✅ Label ${data.labelId}: Aligned (${data.labelLeft}px)`);
+                        testResults.push({ test: 'label-alignment', result: 'pass' });
+                    } else {
+                        addResult('fail', `  ❌ Label ${data.labelId}: Misaligned (${data.labelLeft}px, expected ~${firstLabelLeft}px)`);
+                        testResults.push({ test: 'label-alignment', result: 'fail' });
+                    }
+                    
+                    if (inputAligned) {
+                        alignedInputs++;
+                        addResult('pass', `  ✅ Input ${data.inputId}: Aligned (${data.inputLeft}px)`);
+                        testResults.push({ test: 'input-alignment', result: 'pass' });
+                    } else {
+                        addResult('fail', `  ❌ Input ${data.inputId}: Misaligned (${data.inputLeft}px, expected ~${firstInputLeft}px)`);
+                        testResults.push({ test: 'input-alignment', result: 'fail' });
+                    }
+                }
+                
+                const labelAlignmentRate = (alignedLabels / (alignmentData.length - 1)) * 100;
+                const inputAlignmentRate = (alignedInputs / (alignmentData.length - 1)) * 100;
+                
+                addResult('info', `📊 Label alignment: ${alignedLabels}/${alignmentData.length - 1} (${labelAlignmentRate.toFixed(1)}%)`);
+                addResult('info', `📊 Input alignment: ${alignedInputs}/${alignmentData.length - 1} (${inputAlignmentRate.toFixed(1)}%)`);
+            }
+            
+            addResult('pass', '🎉 TransactionForm spacing consistency tests completed!');
+        }
+
+        function showTestSummary() {
+            const summary = document.getElementById('testSummary');
+            const metrics = document.getElementById('summaryMetrics');
+            
+            if (testResults.length === 0) {
+                summary.style.display = 'none';
+                return;
+            }
+            
+            const totalTests = testResults.length;
+            const passedTests = testResults.filter(r => r.result === 'pass').length;
+            const failedTests = testResults.filter(r => r.result === 'fail').length;
+            const successRate = totalTests > 0 ? (passedTests / totalTests) * 100 : 0;
+            
+            metrics.innerHTML = `
+                <div class="metric">
+                    <div class="metric-value" style="color: #059669;">${passedTests}</div>
+                    <div class="metric-label">Passed</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" style="color: #dc2626;">${failedTests}</div>
+                    <div class="metric-label">Failed</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">${totalTests}</div>
+                    <div class="metric-label">Total</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value" style="color: ${successRate >= 90 ? '#059669' : successRate >= 70 ? '#d97706' : '#dc2626'};">${successRate.toFixed(1)}%</div>
+                    <div class="metric-label">Success Rate</div>
+                </div>
+            `;
+            
+            summary.style.display = 'block';
+        }
+
+        // Add some helpful console functions for manual testing
+        window.manualSpacingTest = function() {
+            console.log('🧪 Manual TransactionForm Spacing Test');
+            console.log('Copy and paste this code in the TransactionForm page console:');
+            console.log(`
+// TransactionForm Spacing Consistency Test
+const containers = document.querySelectorAll('.space-y-2');
+console.log('Found', containers.length, 'form field containers');
+
+// Test container spacing
+if (containers.length >= 2) {
+    const spacingData = Array.from(containers).map((container, index) => {
+        const computed = window.getComputedStyle(container);
+        return {
+            index,
+            marginTop: computed.marginTop,
+            marginBottom: computed.marginBottom,
+            id: container.querySelector('input, textarea, [role="combobox"]')?.id || 'container-' + index,
+        };
+    });
+    
+    console.log('Container spacing data:', spacingData);
+    
+    const firstContainer = spacingData[0];
+    let consistent = 0;
+    
+    for (let i = 1; i < spacingData.length; i++) {
+        const container = spacingData[i];
+        const isConsistent = container.marginTop === firstContainer.marginTop && 
+                           container.marginBottom === firstContainer.marginBottom;
+        
+        if (isConsistent) {
+            consistent++;
+            console.log('✅ Container', i, '(' + container.id + '): Consistent spacing');
+        } else {
+            console.log('❌ Container', i, '(' + container.id + '): Inconsistent spacing');
+            console.log('  Expected:', firstContainer.marginTop, firstContainer.marginBottom);
+            console.log('  Actual:', container.marginTop, container.marginBottom);
+        }
+    }
+    
+    console.log('📊 Container spacing consistency:', consistent + '/' + (spacingData.length - 1), 
+                '(' + ((consistent / (spacingData.length - 1)) * 100).toFixed(1) + '%)');
+}
+
+// Test adjacent gaps
+const adjacentSpacing = [];
+for (let i = 0; i < containers.length - 1; i++) {
+    const current = containers[i];
+    const next = containers[i + 1];
+    
+    const currentRect = current.getBoundingClientRect();
+    const nextRect = next.getBoundingClientRect();
+    
+    const gap = nextRect.top - (currentRect.top + currentRect.height);
+    adjacentSpacing.push({
+        gap: Math.round(gap),
+        currentId: current.querySelector('input, textarea, [role="combobox"]')?.id || 'element-' + i,
+        nextId: next.querySelector('input, textarea, [role="combobox"]')?.id || 'element-' + (i + 1),
+    });
+}
+
+console.log('Adjacent spacing data:', adjacentSpacing);
+
+if (adjacentSpacing.length >= 2) {
+    const expectedGap = adjacentSpacing[0].gap;
+    let consistentGaps = 0;
+    
+    adjacentSpacing.forEach(spacing => {
+        const isConsistent = Math.abs(spacing.gap - expectedGap) <= 3;
+        if (isConsistent) {
+            consistentGaps++;
+            console.log('✅ Gap', spacing.currentId, '→', spacing.nextId + ':', spacing.gap + 'px');
+        } else {
+            console.log('❌ Gap', spacing.currentId, '→', spacing.nextId + ':', spacing.gap + 'px', '(expected ~' + expectedGap + 'px)');
+        }
+    });
+    
+    console.log('📊 Gap consistency:', consistentGaps + '/' + adjacentSpacing.length, 
+                '(' + ((consistentGaps / adjacentSpacing.length) * 100).toFixed(1) + '%)');
+}
+
+console.log('🎉 Manual spacing test completed!');
+            `);
+        };
+
+        // Show manual test instructions on load
+        console.log('🧪 TransactionForm Spacing Consistency Verification Tool Loaded');
+        console.log('📋 For manual testing, call: manualSpacingTest()');
+    </script>
+</body>
+</html>
