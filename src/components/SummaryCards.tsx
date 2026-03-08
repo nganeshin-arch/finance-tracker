@@ -1,15 +1,41 @@
-import React, { useMemo } from 'react';
-import { TrendingUp, TrendingDown, DollarSign, Wallet } from 'lucide-react';
-import { Card, CardContent } from './ui/card';
-import { cn } from '../lib/utils';
+import React, { useMemo, useState, useEffect } from 'react';
+import { TrendingUp, TrendingDown, DollarSign, Wallet, Sparkles } from 'lucide-react';
+import { StatCard } from './ui/stat-card';
+import { DashboardGrid } from './ui/dashboard-grid';
 import { formatCurrency } from '../utils/formatUtils';
 import { Transaction } from '../types/models';
 
 interface SummaryCardsProps {
   transactions: Transaction[];
+  /** Previous period transactions for trend calculation */
+  previousTransactions?: Transaction[];
+  /** Loading state for smooth transitions */
+  isLoading?: boolean;
 }
 
-export const SummaryCards: React.FC<SummaryCardsProps> = ({ transactions }) => {
+// Helper function to format currency values for StatCard
+const formatCurrencyValue = (value: number | string): string => {
+  const numValue = typeof value === 'string' ? parseFloat(value) : value;
+  return formatCurrency(numValue);
+};
+
+export const SummaryCards: React.FC<SummaryCardsProps> = ({ 
+  transactions, 
+  previousTransactions = [],
+  isLoading = false
+}) => {
+  // State for smooth data transitions
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
+  // Set data loaded state when transactions are available
+  useEffect(() => {
+    if (!isLoading && transactions.length >= 0) {
+      const timer = setTimeout(() => setIsDataLoaded(true), 100);
+      return () => clearTimeout(timer);
+    } else {
+      setIsDataLoaded(false);
+    }
+  }, [isLoading, transactions]);
   // Calculate summary totals from filtered transactions
   const summary = useMemo(() => {
     const income = transactions
@@ -24,88 +50,107 @@ export const SummaryCards: React.FC<SummaryCardsProps> = ({ transactions }) => {
       .filter(t => t.transactionType?.name === 'Transfer')
       .reduce((sum, t) => sum + t.amount, 0);
     
+    const balance = income - expense;
+
+    // Calculate previous period totals for trend indicators
+    const prevIncome = previousTransactions
+      .filter(t => t.transactionType?.name === 'Income')
+      .reduce((sum, t) => sum + t.amount, 0);
+    
+    const prevExpense = previousTransactions
+      .filter(t => t.transactionType?.name === 'Expense')
+      .reduce((sum, t) => sum + t.amount, 0);
+    
+    const prevTransfers = previousTransactions
+      .filter(t => t.transactionType?.name === 'Transfer')
+      .reduce((sum, t) => sum + t.amount, 0);
+    
+    const prevBalance = prevIncome - prevExpense;
+
+    // Calculate trend percentages
+    const calculateTrendPercentage = (current: number, previous: number): string => {
+      if (previous === 0) return current > 0 ? '+100%' : '0%';
+      const change = ((current - previous) / Math.abs(previous)) * 100;
+      return `${change >= 0 ? '+' : ''}${change.toFixed(1)}%`;
+    };
+
     return {
       income,
       expense,
       transfers,
-      balance: income - expense
+      balance,
+      trends: {
+        income: calculateTrendPercentage(income, prevIncome),
+        expense: calculateTrendPercentage(expense, prevExpense),
+        transfers: calculateTrendPercentage(transfers, prevTransfers),
+        balance: calculateTrendPercentage(balance, prevBalance),
+      },
+      trendDirections: {
+        income: income >= prevIncome ? 'positive' : 'negative',
+        expense: expense <= prevExpense ? 'positive' : 'negative', // Lower expenses are positive
+        transfers: transfers >= prevTransfers ? 'positive' : transfers < prevTransfers ? 'negative' : 'neutral',
+        balance: balance >= prevBalance ? 'positive' : 'negative',
+      }
     };
-  }, [transactions]);
-
-  const cards = [
-    {
-      label: 'Income',
-      value: summary.income,
-      icon: TrendingUp,
-      bgClass: 'bg-green-50 dark:bg-green-950/20',
-      borderClass: 'border-l-4 border-l-green-500',
-      textClass: 'text-green-700 dark:text-green-400',
-      iconClass: 'text-green-600 dark:text-green-400',
-    },
-    {
-      label: 'Expenses',
-      value: summary.expense,
-      icon: TrendingDown,
-      bgClass: 'bg-red-50 dark:bg-red-950/20',
-      borderClass: 'border-l-4 border-l-red-500',
-      textClass: 'text-red-700 dark:text-red-400',
-      iconClass: 'text-red-600 dark:text-red-400',
-    },
-    {
-      label: 'Transfers',
-      value: summary.transfers,
-      icon: DollarSign,
-      bgClass: 'bg-blue-50 dark:bg-blue-950/20',
-      borderClass: 'border-l-4 border-l-blue-500',
-      textClass: 'text-blue-700 dark:text-blue-400',
-      iconClass: 'text-blue-600 dark:text-blue-400',
-    },
-    {
-      label: 'Balance',
-      value: summary.balance,
-      icon: Wallet,
-      bgClass: summary.balance >= 0 
-        ? 'bg-emerald-50 dark:bg-emerald-950/20'
-        : 'bg-orange-50 dark:bg-orange-950/20',
-      borderClass: summary.balance >= 0 
-        ? 'border-l-4 border-l-emerald-500'
-        : 'border-l-4 border-l-orange-500',
-      textClass: summary.balance >= 0 
-        ? 'text-emerald-700 dark:text-emerald-400'
-        : 'text-orange-700 dark:text-orange-400',
-      iconClass: summary.balance >= 0 
-        ? 'text-emerald-600 dark:text-emerald-400'
-        : 'text-orange-600 dark:text-orange-400',
-    },
-  ];
+  }, [transactions, previousTransactions]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-      {cards.map((card) => {
-        const Icon = card.icon;
-        return (
-          <Card
-            key={card.label}
-            className={cn(
-              'transition-transform hover:scale-105',
-              card.bgClass,
-              card.borderClass
-            )}
-          >
-            <CardContent className="p-4 sm:p-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs sm:text-sm font-medium text-muted-foreground">
-                  {card.label}
-                </span>
-                <Icon className={cn('h-4 w-4 sm:h-5 sm:w-5', card.iconClass)} />
-              </div>
-              <p className={cn('text-xl sm:text-2xl font-bold', card.textClass)}>
-                {formatCurrency(card.value)}
-              </p>
-            </CardContent>
-          </Card>
-        );
-      })}
+    <div className={`transition-all duration-300 ${isDataLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'}`}>
+      <DashboardGrid columns={4} enableStagger={true} staggerDelay={150}>
+        {/* Total Balance - Key metric with gradient accent */}
+        <StatCard
+          label="Total Balance"
+          value={summary.balance}
+          icon={summary.balance >= 0 ? Sparkles : Wallet}
+          formatValue={formatCurrencyValue}
+          trend={summary.trendDirections.balance as "positive" | "negative"}
+          trendValue={summary.trends.balance}
+          showTrendIcon={true}
+          useGradient={true}
+          gradientClass={summary.balance >= 0 ? "bg-gradient-income" : "bg-gradient-expense"}
+          ariaLabel={`Total balance: ${formatCurrency(summary.balance)}, trend ${summary.trends.balance}`}
+        />
+
+        {/* Monthly Income - Key metric with gradient accent */}
+        <StatCard
+          label="Monthly Income"
+          value={summary.income}
+          icon={TrendingUp}
+          formatValue={formatCurrencyValue}
+          trend={summary.trendDirections.income as "positive" | "negative"}
+          trendValue={summary.trends.income}
+          showTrendIcon={true}
+          useGradient={true}
+          gradientClass="bg-gradient-income"
+          ariaLabel={`Monthly income: ${formatCurrency(summary.income)}, trend ${summary.trends.income}`}
+        />
+        
+        {/* Monthly Expenses - Key metric with gradient accent and overflow protection */}
+        <StatCard
+          label="Monthly Expenses"
+          value={summary.expense}
+          icon={TrendingDown}
+          formatValue={formatCurrencyValue}
+          trend={summary.trendDirections.expense as "positive" | "negative"}
+          trendValue={summary.trends.expense}
+          showTrendIcon={true}
+          useGradient={true}
+          gradientClass="bg-gradient-expense"
+          ariaLabel={`Monthly expenses: ${formatCurrency(summary.expense)}, trend ${summary.trends.expense}`}
+        />
+        
+        {/* Transfers - Standard styling with trend indicators */}
+        <StatCard
+          label="Transfers"
+          value={summary.transfers}
+          icon={DollarSign}
+          formatValue={formatCurrencyValue}
+          trend={summary.trendDirections.transfers as "positive" | "negative" | "neutral"}
+          trendValue={summary.trends.transfers}
+          showTrendIcon={true}
+          ariaLabel={`Transfers: ${formatCurrency(summary.transfers)}, trend ${summary.trends.transfers}`}
+        />
+      </DashboardGrid>
     </div>
   );
 };

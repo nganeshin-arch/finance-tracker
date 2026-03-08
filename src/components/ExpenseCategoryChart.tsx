@@ -89,11 +89,12 @@ const ExpenseCategoryChartComponent: React.FC<ExpenseCategoryChartProps> = ({ tr
           {formatCurrency(totalExpense)}
         </div>
       </CardHeader>
-      <CardContent className="p-6">
+      <CardContent className="p-6 overflow-hidden">
         <div 
           role="img" 
           aria-labelledby="expense-chart-title"
           aria-describedby="expense-chart-description"
+          className="w-full"
         >
           <ResponsiveContainer width="100%" height={350}>
             <PieChart>
@@ -133,7 +134,7 @@ const ExpenseCategoryChartComponent: React.FC<ExpenseCategoryChartProps> = ({ tr
               />
               <Legend
                 verticalAlign="bottom"
-                height={60}
+                height={80}
                 iconType="circle"
                 formatter={(value) => {
                   const item = chartData.find(d => d.name === value);
@@ -145,43 +146,47 @@ const ExpenseCategoryChartComponent: React.FC<ExpenseCategoryChartProps> = ({ tr
                 }}
                 wrapperStyle={{
                   paddingTop: '20px',
+                  maxWidth: '100%',
+                  overflow: 'hidden',
                 }}
                 content={(props) => {
                   const { payload } = props;
                   return (
-                    <ul 
-                      className="flex flex-wrap gap-4 justify-center mt-5"
-                      role="list"
-                      aria-label="Expense categories legend"
-                    >
-                      {payload?.map((entry, index) => {
-                        const item = chartData.find(d => d.name === entry.value);
-                        return (
-                          <li
-                            key={`legend-${index}`}
-                            className="flex items-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded px-2 py-1 transition-all hover:bg-red-100 dark:hover:bg-red-900/20"
-                            tabIndex={0}
-                            role="button"
-                            aria-label={`${entry.value}: ${formatCurrency(item?.value || 0)}, ${item?.percentage.toFixed(1)}% of total expenses. Press Enter to toggle visibility.`}
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter' || e.key === ' ') {
-                                e.preventDefault();
-                                // Legend click functionality handled by Recharts
-                              }
-                            }}
-                          >
-                            <span
-                              className="w-3 h-3 rounded-full"
-                              style={{ backgroundColor: entry.color }}
-                              aria-hidden="true"
-                            />
-                            <span className="text-sm">
-                              {entry.value}: {formatCurrency(item?.value || 0)} ({item?.percentage.toFixed(1)}%)
-                            </span>
-                          </li>
-                        );
-                      })}
-                    </ul>
+                    <div className="w-full px-2 mt-4 max-w-full overflow-hidden">
+                      <ul 
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-1 text-xs max-w-full"
+                        role="list"
+                        aria-label="Expense categories legend"
+                      >
+                        {payload?.map((entry, index) => {
+                          const item = chartData.find(d => d.name === entry.value);
+                          return (
+                            <li
+                              key={`legend-${index}`}
+                              className="flex items-center gap-2 cursor-pointer focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded px-2 py-1 transition-all hover:bg-red-100 dark:hover:bg-red-900/20 min-w-0 max-w-full"
+                              tabIndex={0}
+                              role="button"
+                              aria-label={`${entry.value}: ${formatCurrency(item?.value || 0)}, ${item?.percentage.toFixed(1)}% of total expenses. Press Enter to toggle visibility.`}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === ' ') {
+                                  e.preventDefault();
+                                  // Legend click functionality handled by Recharts
+                                }
+                              }}
+                            >
+                              <span
+                                className="w-3 h-3 rounded-full flex-shrink-0"
+                                style={{ backgroundColor: entry.color }}
+                                aria-hidden="true"
+                              />
+                              <span className="text-xs truncate flex-1 min-w-0">
+                                {entry.value}: {formatCurrency(item?.value || 0)} ({item?.percentage.toFixed(1)}%)
+                              </span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
                   );
                 }}
               />
