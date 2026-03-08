@@ -29,4 +29,25 @@ router.get(
   userController.getUserStats.bind(userController)
 );
 
+/**
+ * User Preferences Routes
+ * Available to all authenticated users for their own preferences
+ */
+
+// GET /api/users/preferences - Get current user's preferences
+router.get(
+  '/preferences',
+  authenticateToken,
+  attachUserContext,
+  userController.getUserPreferences.bind(userController)
+);
+
+// PUT /api/users/preferences - Update current user's preferences
+router.put(
+  '/preferences',
+  authenticateToken,
+  attachUserContext,
+  userController.updateUserPreferences.bind(userController)
+);
+
 export default router;

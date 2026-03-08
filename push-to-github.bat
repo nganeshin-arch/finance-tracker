@@ -16,7 +16,7 @@ echo 6. Copy the repository URL
 echo.
 echo Example URL: https://github.com/yourusername/finance-tracker.git
 echo.
-set /p REPO_URL=https://github.com/nganeshin-arch/
+set /p REPO_URL=https://github.com/nganeshin-arch/finance-tracker
 echo.
 
 echo Step 2: Initializing Git...

@@ -1,5 +1,5 @@
 import userRepository, { UserSummary, UserStats } from '../repositories/userRepository';
-import { User } from '../types/models';
+import { User, UserPreferences } from '../types/models';
 import { NotFoundError, ForbiddenError } from '../utils/errors';
 
 /**
@@ -42,6 +42,68 @@ export class UserService {
       throw new NotFoundError(`User with ID ${userId} not found`);
     }
     return user;
+  }
+
+  /**
+   * Get user preferences
+   * Returns default preferences if none exist
+   */
+  async getUserPreferences(userId: number): Promise<UserPreferences> {
+    // Verify user exists
+    const user = await userRepository.findById(userId);
+    if (!user) {
+      throw new NotFoundError(`User with ID ${userId} not found`);
+    }
+
+    let preferences = await userRepository.getUserPreferences(userId);
+    
+    // Create default preferences if none exist
+    if (!preferences) {
+      const defaultPreferences = {
+        userId,
+        monthlyStartDate: 1, // Default to 1st of month
+        timezone: 'Asia/Kolkata',
+        currency: 'INR',
+        dateFormat: 'DD/MM/YYYY'
+      };
+      
+      preferences = await userRepository.createUserPreferences(defaultPreferences);
+    }
+    
+    return preferences;
+  }
+
+  /**
+   * Update user preferences
+   */
+  async updateUserPreferences(
+    userId: number, 
+    updates: Partial<Pick<UserPreferences, 'monthlyStartDate' | 'timezone' | 'currency' | 'dateFormat'>>
+  ): Promise<UserPreferences> {
+    // Verify user exists
+    const user = await userRepository.findById(userId);
+    if (!user) {
+      throw new NotFoundError(`User with ID ${userId} not found`);
+    }
+
+    // Get existing preferences or create defaults
+    let preferences = await userRepository.getUserPreferences(userId);
+    
+    if (!preferences) {
+      // Create new preferences with updates
+      const defaultPreferences = {
+        userId,
+        monthlyStartDate: updates.monthlyStartDate ?? 1,
+        timezone: updates.timezone ?? 'Asia/Kolkata',
+        currency: updates.currency ?? 'INR',
+        dateFormat: updates.dateFormat ?? 'DD/MM/YYYY'
+      };
+      
+      return await userRepository.createUserPreferences(defaultPreferences);
+    } else {
+      // Update existing preferences
+      return await userRepository.updateUserPreferences(userId, updates);
+    }
   }
 
   /**

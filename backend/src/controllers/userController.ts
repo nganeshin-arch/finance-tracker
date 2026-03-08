@@ -105,6 +105,79 @@ export class UserController {
       next(error);
     }
   }
+
+  /**
+   * GET /api/users/preferences
+   * Get current user's preferences
+   */
+  async getUserPreferences(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userContextReq = req as UserContextRequest;
+      
+      // Verify user context exists
+      if (!userContextReq.userContext?.userId) {
+        res.status(401).json({
+          error: 'Unauthorized',
+          message: 'User context not found'
+        });
+        return;
+      }
+      
+      // Get user preferences
+      const preferences = await userService.getUserPreferences(userContextReq.userContext.userId);
+      
+      res.json(preferences);
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        res.status(404).json({
+          error: 'Not Found',
+          message: error.message
+        });
+        return;
+      }
+      next(error);
+    }
+  }
+
+  /**
+   * PUT /api/users/preferences
+   * Update current user's preferences
+   */
+  async updateUserPreferences(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userContextReq = req as UserContextRequest;
+      
+      // Verify user context exists
+      if (!userContextReq.userContext?.userId) {
+        res.status(401).json({
+          error: 'Unauthorized',
+          message: 'User context not found'
+        });
+        return;
+      }
+      
+      const { monthlyStartDate, timezone, currency, dateFormat } = req.body;
+      
+      // Validate monthlyStartDate
+      if (monthlyStartDate !== undefined && (monthlyStartDate < 1 || monthlyStartDate > 31)) {
+        res.status(400).json({
+          error: 'Bad Request',
+          message: 'Monthly start date must be between 1 and 31'
+        });
+        return;
+      }
+      
+      // Update user preferences
+      const preferences = await userService.updateUserPreferences(
+        userContextReq.userContext.userId,
+        { monthlyStartDate, timezone, currency, dateFormat }
+      );
+      
+      res.json(preferences);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new UserController();

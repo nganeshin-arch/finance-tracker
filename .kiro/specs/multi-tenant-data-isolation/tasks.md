@@ -6,10 +6,10 @@ This implementation plan converts the multi-tenant data isolation design into ac
 
 ---
 
-## Phase 1: Database Migration and Schema Updates
+## Phase 1: Database Migration and Schema Updates 
+
 
 - [-] 1. Create database migration for user_id column
-
 
 
 

@@ -8,6 +8,7 @@ import * as migration006 from './006_create_accounts';
 import * as migration007 from './007_create_transactions';
 import * as migration008 from './008_create_indexes';
 import * as migration009 from './009_create_users';
+import * as migration011 from './011_create_user_preferences';
 
 const migrations = [
   { name: '001_create_tracking_cycles', ...migration001 },
@@ -19,6 +20,7 @@ const migrations = [
   { name: '007_create_transactions', ...migration007 },
   { name: '008_create_indexes', ...migration008 },
   { name: '009_create_users', ...migration009 },
+  { name: '011_create_user_preferences', ...migration011 },
 ];
 
 async function createMigrationsTable() {
