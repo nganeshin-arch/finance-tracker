@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: finance-tracker-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 7d
+      - key: BCRYPT_ROUNDS
+        value: 10
+      - key: FRONTEND_URL
+        value: https://keen-strudel-fc96aa.netlify.app
+
+databases:
+  - name: finance-tracker-db
+    plan: free
