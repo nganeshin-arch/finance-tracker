@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Search, Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Transaction } from '../types/models';
-import { formatDateForDisplay } from '../utils/dateUtils';
+// import { formatDateForDisplay } from '../utils/dateUtils'; // Removed unused import
 import { formatCurrency } from '../utils/formatUtils';
 import { Button } from './ui/button';
 import { Input } from './ui/input';

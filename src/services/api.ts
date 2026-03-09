@@ -10,7 +10,7 @@ export interface ApiError {
 
 // Create axios instance with base configuration
 const api: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://192.168.29.109:5000/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://finance-tracker-backend-mxzt.onrender.com/api',
   timeout: 30000, // 30 seconds timeout
   headers: {
     'Content-Type': 'application/json',
