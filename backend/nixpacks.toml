@@ -1,8 +1,11 @@
 [phases.setup]
-nixPkgs = ["nodejs_20"]
-
+nixPkgs = ["nodejs_20", "npm-9_x"]
+ECHO is off.
 [phases.install]
-cmds = ["npm install"]
-
+cmds = ["npm ci --only=production"]
+ECHO is off.
+[phases.build]
+cmds = ["npm run build"]
+ECHO is off.
 [start]
 cmd = "npm start"
